@@ -3,9 +3,32 @@
 
 
 
-get all legislators without pagination
 http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c
 
 */
+
+
+
 include('congress.html');
+
+
+/* get all legislators without pagination */
+$legislators = request("http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c");
+$committees = request("http://congress.api.sunlightfoundation.com/committees?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c");
+$bills = request("http://congress.api.sunlightfoundation.com/bills?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c");
+
+var_dump ($bills);
+
+
+
+function request($url) {
+					$response = "";
+					$jsonobj="";
+					try {
+						$response = @file_get_contents($url);
+					} catch(Exception $e){}
+					$jsonobj=json_decode($response,true);
+
+					return $jsonobj;
+				}
 ?>
