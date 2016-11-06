@@ -1,0 +1,23 @@
+application: congress
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+-   url: /css  #your css folder
+    static_dir: css
+
+-   url: /scripts #your javascript folder
+    static_dir: scripts
+
+
+-   url: /main.php
+    script: main.php
+
+-   url: .*
+    script: main.php
