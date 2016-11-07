@@ -20,15 +20,14 @@ $bills = request("http://congress.api.sunlightfoundation.com/bills?per_page=all&
 var_dump ($bills);
 
 
-
 function request($url) {
-					$response = "";
-					$jsonobj="";
-					try {
-						$response = @file_get_contents($url);
-					} catch(Exception $e){}
-					$jsonobj=json_decode($response,true);
-
-					return $jsonobj;
-				}
+	$response = "";
+	$jsonobj="";
+	try {
+		$response = @file_get_contents($url);
+	} catch(Exception $e){}
+	$jsonobj=json_decode($response,true);
+	
+	return $jsonobj;
+}
 ?>
