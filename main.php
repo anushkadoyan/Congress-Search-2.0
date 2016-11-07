@@ -9,23 +9,22 @@ http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=9d713
 
 
 
-include('congress.html');
+// include('congress.html');
 
 
 /* get all legislators without pagination */
 $legislators = request("http://congress.api.sunlightfoundation.com/legislators?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c");
 $committees = request("http://congress.api.sunlightfoundation.com/committees?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c");
-$bills = request("http://congress.api.sunlightfoundation.com/bills?per_page=all&apikey=9d713eee2bda4febb053035ef76e5f4c");
+$billsOld = request("http://congress.api.sunlightfoundation.com/bills?per_page=50&history.active=true&apikey=9d713eee2bda4febb053035ef76e5f4c");
+$billsNew = request("http://congress.api.sunlightfoundation.com/bills?per_page=50&history.active=false&apikey=9d713eee2bda4febb053035ef76e5f4c");
 
-var_dump ($bills);
-
+echo json_encode($legislators);
 
 function request($url) {
 	$response = "";
 	$jsonobj="";
-	try {
-		$response = @file_get_contents($url);
-	} catch(Exception $e){}
+	
+	$response = @file_get_contents($url);
 	$jsonobj=json_decode($response,true);
 	
 	return $jsonobj;

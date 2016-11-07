@@ -20,4 +20,4 @@ handlers:
     script: main.php
 
 -   url: .*
-    script: main.php
+    script: congress.html
