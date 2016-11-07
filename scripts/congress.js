@@ -12,22 +12,61 @@ myApp.controller("myController",function($scope) {
         dataType: "json",
         data: {},
         success: function(data) {
-			resp = data["results"];			
+			resp = data["results"];	
+			$scope.people =[];	
 			  $(resp).each( function(index, obj){
+				  if(obj.district==null) {
+					  obj.district="N.A";
+				  } else {
+					  obj.district="District "+obj.district;
+				  }
 				  var state=obj.state;
+				  var partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
+				  var chamberImage = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
+				  if(obj.party=="D") {
+					  partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
+				  }
+				  if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
+				  var chamberImage = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
+				  }
+/*
 				 console.log( obj.party	 + " " + obj.first_name + " " + obj.last_name
-				 			 + " " +   obj.chamber  + " " +  obj.district  + " " +  states[state]); 
+				 			 + " " +   obj.chamber.charAt(0).toUpperCase()  + obj.chamber.slice(1)+ " " +  obj.district  + " " +  states[state]); 
+				 
+*/
+			$scope.$apply(function() {
+				 $scope.people.push({
+					 "party": obj.party,
+					 "firstName": obj.first_name,
+					 "lastName": obj.last_name,
+					 "chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
+					 "district": obj.district,
+					 "state": states[state],
+					 "partyImage":partyImage,
+					 "chamberImage":chamberImage
+				 });
+				 $scope.orderByState="state";
+				 $scope.orderByLastName="lastName";
+				 $scope.R="r.jpg";
+				 $scope.D="d.jpg";
+
+				});
+
+				 
+				 			 
+				 
 			  });
-			  
+			  console.log($scope.people);
         },
         error: function(xhr, status, error){
 	        
         }
+        
+        
       });
 
-	
-	
-	$scope.message = "AngularJS Tutorial";
-	
+console.log($scope);	
+								 $scope.m="fyuk";
+
 });
 
