@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="scripts/congress.js"></script>
+    <script src="scripts/dirPagination.js"></script>
+
   </head>
   <body>
     <div ng-controller="myController">
@@ -21,7 +23,8 @@
 					<th>District</th>
 					<th>State</th>
 				</tr>
-				<tr ng-repeat="p in people | orderBy:[orderByState, orderByLastName]">
+				<!-- -->
+				<tr dir-paginate="p in people |  orderBy:[orderByState, orderByLastName]| itemsPerPage:10 ">
 					<td><img style="width: 30px;
     height: auto;" ng-src="{{p.partyImage}}"></td>
 					<td>{{p.lastName}}, {{p.firstName}}</td>
@@ -31,6 +34,7 @@
 					<td>{{p.state}}</td>
 				</tr>
 		    </table>
+		   <dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
 	    </div>
 <!-- 	    {{message}} -->
 <!--
