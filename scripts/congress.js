@@ -156,6 +156,14 @@ myApp.controller("myController",function($scope) {
 	$scope.D="d.jpg";
 	$scope.pageSize = 5;
 	$scope.currentPage = 1;
-	
+	$scope.customFilter = '';
+	$('#myTabs a').click(function (e) {
+		e.preventDefault();
+		var filterBy = $(this).attr('id');
+		$scope.$apply(function() {
+			$scope.customFilter = filterBy;
+			});
+// 		$(this).tab('show')
+	})
 });
 

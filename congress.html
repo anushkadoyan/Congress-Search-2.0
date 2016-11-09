@@ -13,8 +13,19 @@
 
   </head>
   <body>
-    <div ng-controller="myController">
-	    <div >
+	<div>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="myTabs" role="tablist">
+			<li role="presentation" class="active"><a href="#table" id="" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
+			<li role="presentation"><a href="#table" aria-controls="house" id="house" role="tab" data-toggle="tab">House</a></li>
+			<li role="presentation"><a href="#table" aria-controls="senate" id="senate" role="tab" data-toggle="tab">Senate</a></li>
+		</ul>
+
+	</div>  
+			<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="state">
+			<div ng-controller="myController">
 		    <table class="table">
 				<tr>
 					<th>Party</th>
@@ -23,8 +34,9 @@
 					<th>District</th>
 					<th>State</th>
 				</tr>
-				<!-- -->
-				<tr dir-paginate="p in people |  orderBy:[orderByState, orderByLastName]| itemsPerPage:10 ">
+				<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+ -->
+				<tr dir-paginate="p in people | filter:customFilter | orderBy:[orderByState, orderByLastName]| itemsPerPage:10 ">
 					<td><img style="width: 30px;
     height: auto;" ng-src="{{p.partyImage}}"></td>
 					<td>{{p.lastName}}, {{p.firstName}}</td>
@@ -35,7 +47,13 @@
 				</tr>
 		    </table>
 		   <dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
-	    </div>
     </div>
+		</div>
+		
+		<div role="tabpanel" class="tab-pane" id="senate">
+			sdf
+		</div>
+	</div>
+    
   </body>
 </html>
