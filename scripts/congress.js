@@ -12,51 +12,137 @@ myApp.controller("myController",function($scope) {
         data: {},
         success: function(data) {
 	        console.log(data);
-			resp = data[0]["results"];	
+			legislators = data[0]["results"];	
+			billsOld = data[1]["results"];
+			billsNew= data[2]["results"];
+			committees = data[3]["results"];
 			$scope.people =[];	
-			  $(resp).each( function(index, obj){
-				  if(obj.district==null) {
-					  obj.district="N.A";
-				  } else {
-					  obj.district="District "+obj.district;
-				  }
-				  var state=obj.state;
-				  var partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
-				  var chamberImage = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
-				  if(obj.party=="D") {
-					  partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
-				  }
-				  if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
-				  var chamberImage = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
-				  }
-			$scope.$apply(function() {
-				 $scope.people.push({
-					 "party": obj.party,
-					 "firstName": obj.first_name,
-					 "lastName": obj.last_name,
-					 "chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
-					 "district": obj.district,
-					 "state": states[state],
-					 "partyImage":partyImage,
-					 "chamberImage":chamberImage
-				 });
-				 $scope.orderByState="state";
-				 $scope.orderByLastName="lastName";
-				 $scope.R="r.jpg";
-				 $scope.D="d.jpg";
-				 $scope.pageSize = 5;
+			$scope.billsNew =[];	
+			$scope.billsOld =[];	
+			$scope.committees =[];	
+			
+			//get legislators
+			$(legislators).each( function(index, obj){
+				if(obj.district==null) {
+					obj.district="N.A";
+				} else {
+					obj.district="District "+obj.district;
+				}
+				var state=obj.state;
+				var partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
+				var chamberImageForLegislators = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
+				if(obj.party=="D") {
+					partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
+				}
+				if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
+					chamberImageForLegislators = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
+				}
+				$scope.$apply(function() {
+					$scope.people.push({
+						"party": obj.party,
+						"firstName": obj.first_name,
+						"lastName": obj.last_name,
+						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
+						"district": obj.district,
+						"state": states[state],
+						"partyImage":partyImage,
+						"chamberImage":chamberImageForLegislators
+					});
+				
+				}); 
+			});
+			//new bills
+			$(billsNew).each( function(index, obj){
+				if(obj.district==null) {
+					obj.district="N.A";
+				} else {
+					obj.district="District "+obj.district;
+				}
+				var state=obj.state;
+				var chamberImageForBills = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
+				if(obj.party=="D") {
+					partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
+				}
+				if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
+					chamberImageForBills = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
+				}
+				$scope.$apply(function() {
+					$scope.billsNew.push({
+						"id": obj.party,
+						"type": obj.first_name,
+						"title": obj.last_name,
+						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
+						"introduced": obj.district,
+						"sponsor": states[state]
+					// 					 "chamberImage":chamberImageForBills
+					});
+				
+				}); 
+			});
+			//old bills
+			$(billsOld).each( function(index, obj){
+				if(obj.district==null) {
+					obj.district="N.A";
+				} else {
+					obj.district="District "+obj.district;
+				}
+				var state=obj.state;
+				var partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
+				var chamberImageForBills = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
+				if(obj.party=="D") {
+					partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
+				}
+				if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
+					chamberImageForBills = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
+				}
+				$scope.$apply(function() {
+					$scope.billsOld.push({
+						"id": obj.party,
+						"type": obj.first_name,
+						"title": obj.last_name,
+						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
+						"introduced": obj.district,
+						"sponsor": states[state]
+					// 					 "chamberImage":chamberImageForBills
+					});
+				
+				}); 
+			});			
+			$(committees).each( function(index, obj){
+				if(obj.office==null) {
+					obj.office="N.A";
+				}
+				var chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
+				
+				if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
+					chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
+				}
+				$scope.$apply(function() {
+					$scope.people.push({
+						"name": obj.name,
+						"parent": obj.parent_committee_id,
+						"id": obj.committee_id,
+						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
+						"contact": obj.phone,
+						"office": obj.office,
 
-				 $scope.currentPage = 1;
-				});
-
-				 
-				 			 
-				 
-			  });
+						"chamberImage":chamberImageForCommittees
+					});
+				
+				}); 
+			});			  
+			  
+			  
+			  
         },
         error: function(xhr, status, error){
         }
     });
-
+	$scope.orderByState="state";
+	$scope.orderByLastName="lastName";
+	$scope.R="r.jpg";
+	$scope.D="d.jpg";
+	$scope.pageSize = 5;
+	$scope.currentPage = 1;
 });
 
