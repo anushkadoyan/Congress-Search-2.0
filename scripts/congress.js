@@ -13,9 +13,9 @@ myApp.controller("myController",function($scope) {
         success: function(data) {
 	        console.log(data);
 			legislators = data[0]["results"];	
-			billsOld = data[1]["results"];
-			billsNew= data[2]["results"];
-			committees = data[3]["results"];
+			billsOld = data[2]["results"];
+			billsNew= data[3]["results"];
+			committees = data[1]["results"];
 			$scope.people =[];	
 			$scope.billsNew =[];	
 			$scope.billsOld =[];	
@@ -52,6 +52,9 @@ myApp.controller("myController",function($scope) {
 				}); 
 			});
 			//new bills
+			
+			// fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor
+			
 			$(billsNew).each( function(index, obj){
 				if(obj.district==null) {
 					obj.district="N.A";
@@ -68,13 +71,13 @@ myApp.controller("myController",function($scope) {
 				}
 				$scope.$apply(function() {
 					$scope.billsNew.push({
-						"id": obj.party,
-						"type": obj.first_name,
-						"title": obj.last_name,
+						"id": obj.bill_id,
+						"type": obj.bill_type,
+						"title": obj.official_title,
 						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
-						"introduced": obj.district,
-						"sponsor": states[state]
-					// 					 "chamberImage":chamberImageForBills
+						"introduced": obj.introduced_on,
+						"sponsor": obj.sponsor,
+						"chamberImage":chamberImageForBills
 					});
 				
 				}); 
@@ -87,7 +90,6 @@ myApp.controller("myController",function($scope) {
 					obj.district="District "+obj.district;
 				}
 				var state=obj.state;
-				var partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
 				var chamberImageForBills = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
 				if(obj.party=="D") {
 					partyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
@@ -97,20 +99,29 @@ myApp.controller("myController",function($scope) {
 				}
 				$scope.$apply(function() {
 					$scope.billsOld.push({
-						"id": obj.party,
-						"type": obj.first_name,
-						"title": obj.last_name,
+						"id": obj.bill_id,
+						"type": obj.bill_type,
+						"title": obj.official_title,
 						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
-						"introduced": obj.district,
-						"sponsor": states[state]
-					// 					 "chamberImage":chamberImageForBills
+						"introduced": obj.introduced_on,
+						"sponsor": obj.sponsor,
+						"chamberImage":chamberImageForBills
 					});
 				
 				}); 
-			});			
+			});	
 			$(committees).each( function(index, obj){
 				if(obj.office==null) {
 					obj.office="N.A";
+				}
+				if(obj.phone==null) {
+					obj.phone="N.A";
+				}
+				if(obj.parent_committee_id==null) {
+					obj.parent_committee_id="N.A";
+				}
+				if(obj.name==null) {
+					obj.name="N.A";
 				}
 				var chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
 				
@@ -118,7 +129,7 @@ myApp.controller("myController",function($scope) {
 					chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
 				}
 				$scope.$apply(function() {
-					$scope.people.push({
+					$scope.committees.push({
 						"name": obj.name,
 						"parent": obj.parent_committee_id,
 						"id": obj.committee_id,
@@ -128,7 +139,8 @@ myApp.controller("myController",function($scope) {
 
 						"chamberImage":chamberImageForCommittees
 					});
-				
+									console.log($scope);
+
 				}); 
 			});			  
 			  
@@ -144,5 +156,6 @@ myApp.controller("myController",function($scope) {
 	$scope.D="d.jpg";
 	$scope.pageSize = 5;
 	$scope.currentPage = 1;
+	
 });
 
