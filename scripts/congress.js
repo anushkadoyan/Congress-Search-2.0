@@ -11,7 +11,8 @@ myApp.controller("myController",function($scope) {
         dataType: "json",
         data: {},
         success: function(data) {
-			resp = data["results"];	
+	        console.log(data);
+			resp = data[0]["results"];	
 			$scope.people =[];	
 			  $(resp).each( function(index, obj){
 				  if(obj.district==null) {
