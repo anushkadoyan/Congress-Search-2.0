@@ -139,7 +139,6 @@ myApp.controller("myController",function($scope) {
 
 						"chamberImage":chamberImageForCommittees
 					});
-									console.log($scope);
 
 				}); 
 			});			  
@@ -157,13 +156,37 @@ myApp.controller("myController",function($scope) {
 	$scope.pageSize = 5;
 	$scope.currentPage = 1;
 	$scope.customFilter = '';
+	$scope.customOrder = '';
 	$('#myTabs a').click(function (e) {
 		e.preventDefault();
+		
 		var filterBy = $(this).attr('id');
+		if (filterBy== "senate") {
+			$('.dist').css("display","none");
+		}
+		else {
+			$('.dist').css("display","table-cell");
+		}
+		var orderBy = $(this).attr('data-order');
+		console.log(orderBy);
 		$scope.$apply(function() {
 			$scope.customFilter = filterBy;
-			});
+			$scope.customOrder = orderBy;
+		});
 // 		$(this).tab('show')
+		console.log($scope.customOrder);
 	})
 });
+
+
+
+
+
+
+
+
+
+
+
+
 

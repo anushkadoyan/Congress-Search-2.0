@@ -13,12 +13,14 @@
 
   </head>
   <body>
+	<h1 style="font-weight: 400;" id="title">Legislators</h1>
+	<hr>
 	<div>
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" id="myTabs" role="tablist">
-			<li role="presentation" class="active"><a href="#table" id="" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
-			<li role="presentation"><a href="#table" aria-controls="house" id="house" role="tab" data-toggle="tab">House</a></li>
-			<li role="presentation"><a href="#table" aria-controls="senate" id="senate" role="tab" data-toggle="tab">Senate</a></li>
+			<li role="presentation" class="active"><a href="#table" id="" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
+			<li role="presentation"><a href="#table" aria-controls="house" data-order="orderByLastName" id="house" role="tab" data-toggle="tab">House</a></li>
+			<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
 		</ul>
 
 	</div>  
@@ -26,34 +28,70 @@
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="state">
 			<div ng-controller="myController">
-		    <table class="table">
-				<tr>
-					<th>Party</th>
-					<th>Name</th>
-					<th>Chamber</th>
-					<th>District</th>
-					<th>State</th>
-				</tr>
-				<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
- -->
-				<tr dir-paginate="p in people | filter:customFilter | orderBy:[orderByState, orderByLastName]| itemsPerPage:10 ">
-					<td><img style="width: 30px;
-    height: auto;" ng-src="{{p.partyImage}}"></td>
-					<td>{{p.lastName}}, {{p.firstName}}</td>
-					<td><img style="width: 30px;
-    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
-					<td>{{p.district}}</td>
-					<td>{{p.state}}</td>
-				</tr>
-		    </table>
-		   <dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
-    </div>
-		</div>
-		
-		<div role="tabpanel" class="tab-pane" id="senate">
-			sdf
+				<figure class="highlight">Legislators By State</figure>
+				<div id="table-container">
+				    <table class="table">
+						<tr>
+							<th>Party</th>
+							<th>Name</th>
+							<th>Chamber</th>
+							<th class="dist"  ng-hide="customFilter==senate">District</th>
+							<th>State</th>
+						</tr>
+						<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+		 -->
+						<tr id="table-content" dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName| itemsPerPage:10 ">
+							<td><img style="width: 30px;
+		    height: auto;" ng-src="{{p.partyImage}}"></td>
+							<td>{{p.lastName}}, {{p.firstName}}</td>
+							<td><img style="width: 30px;
+		    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
+							<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
+							<td>{{p.state}}</td>
+						</tr>
+				    </table>
+				</div>
+				<dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
+		   </div>
 		</div>
 	</div>
     
   </body>
 </html>
+<style>
+	.tab-content {
+		padding:30px;
+	}
+	.highlight {
+		font-weight: bold;
+		    padding: 9px 14px;
+	    background-color: #f7f7f9;
+	    border: 1px solid #e1e1e8;
+	    border-radius: 4px;
+	   border-bottom: 0px;
+	       border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+	    
+	}
+	#table-container {
+		    border: 1px solid #e1e1e8;
+    border-top: 0px;
+	}
+	a {
+		color:#d8d6d6;
+	}
+	.nav-tabs>li {
+		margin-bottom: 0px;
+	}
+	hr {
+		border: none;
+    height: 1px;
+    /* color: #333; */
+    background-color: #ddd;
+	}
+	#myTabs a:hover {
+  	  color: #555;	}
+	#myTabs a:active {
+		color:#d8d6d6;
+	}
+	</style>
