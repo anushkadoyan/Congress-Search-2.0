@@ -13,68 +13,93 @@
 
   </head>
   <body>
-	<h1 style="font-weight: 400;" id="title">Legislators</h1>
-	<hr>
-	<div>
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" id="myTabs" role="tablist">
-			<li role="presentation" class="active"><a href="#table" id="" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
-			<li role="presentation"><a href="#table" aria-controls="house" data-order="orderByLastName" id="house" role="tab" data-toggle="tab">House</a></li>
-			<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
-		</ul>
-
-	</div>  
-			<!-- Tab panes -->
-	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="state">
-			<div ng-controller="myController">
-				<figure class="highlight">Legislators By State</figure>
-				<div id="table-container">
-				    <table class="table">
-						<tr>
-							<th>Party</th>
-							<th>Name</th>
-							<th>Chamber</th>
-							<th class="dist"  ng-hide="customFilter==senate">District</th>
-							<th>State</th>
-						</tr>
-						<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-		 -->
-						<tr id="table-content" dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName| itemsPerPage:10 ">
-							<td><img style="width: 30px;
-		    height: auto;" ng-src="{{p.partyImage}}"></td>
-							<td>{{p.lastName}}, {{p.firstName}}</td>
-							<td><img style="width: 30px;
-		    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
-							<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
-							<td>{{p.state}}</td>
-						</tr>
-				    </table>
+	  <div id="header">
+		  <img style="    width: 80px;
+    vertical-align: sub;" src="images/sunlight.png"/>
+		  <span style="font-size: x-large">Congress API</span>
+	  </div>
+	<table style="width: 100%">
+		<tr>
+			<td id="left-side">asdf</td>
+			<td id="right-side">
+				
+				<h1 style="font-weight: 400; margin-top: 0px;" id="title">Legislators</h1>
+				<hr>
+				<div>
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" id="myTabs" role="tablist">
+						<li role="presentation" class="active"><a href="#table" id="" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
+						<li role="presentation"><a href="#table" aria-controls="house" data-order="orderByLastName" id="house" role="tab" data-toggle="tab">House</a></li>
+						<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
+					</ul>
+			
+				</div>  
+						<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="state">
+						<div ng-controller="myController">
+							<figure class="highlight">Legislators By State</figure>
+							<div id="table-container">
+							    <table class="table">
+									<tr>
+										<th>Party</th>
+										<th>Name</th>
+										<th>Chamber</th>
+										<th class="dist"  ng-hide="customFilter==senate">District</th>
+										<th>State</th>
+									</tr>
+									<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+					 -->
+									<tr id="table-content" dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName| itemsPerPage:10 ">
+										<td><img style="width: 30px;
+					    height: auto;" ng-src="{{p.partyImage}}"></td>
+										<td>{{p.lastName}}, {{p.firstName}}</td>
+										<td><img style="width: 30px;
+					    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
+										<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
+										<td>{{p.state}}</td>
+									</tr>
+							    </table>
+							</div>
+							<dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
+					   </div>
+					</div>
 				</div>
-				<dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
-		   </div>
-		</div>
-	</div>
-    
+			</td>
+		</tr>
   </body>
 </html>
 <style>
+	#right-side {
+		padding: 30px;
+	}
+	#left-side {
+		    width: 15%;
+			background-color: #454545;
+	}
+	.table {
+		margin-bottom: 0px;
+	}
+	#header {
+	    margin: 0 auto;
+	    text-align: center;
+	}
 	.tab-content {
 		padding:30px;
 	}
 	.highlight {
 		font-weight: bold;
-		    padding: 9px 14px;
-	    background-color: #f7f7f9;
-	    border: 1px solid #e1e1e8;
-	    border-radius: 4px;
-	   border-bottom: 0px;
-	       border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+		padding: 9px 14px;
+		background-color: #f7f7f9;
+		border: 1px solid #e1e1e8;
+		border-radius: 4px;
+		border-bottom: 0px;
+		border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px;
 	    
 	}
 	#table-container {
-		    border: 1px solid #e1e1e8;
+		border: 1px solid #e1e1e8;
     border-top: 0px;
 	}
 	a {
