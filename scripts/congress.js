@@ -160,6 +160,15 @@ myApp.controller("myController",function($scope) {
 	$scope.currentPage = 1;
 	$scope.customFilter = '';
 	$scope.customOrder = '';
+	$('#tabButton').click(function(e) {
+		e.preventDefault();
+		if($('#left-side').css('display')=="table-cell") {
+			$('#left-side').css("display","none");
+		}
+		else {
+			$('#left-side').css("display","table-cell");
+		}
+	});
 	$('#myTabs a').click(function (e) {
 		e.preventDefault();
 		var filterBy = $(this).attr('id');
