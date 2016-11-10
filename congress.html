@@ -70,7 +70,7 @@
 									<span id="highlight-title">Legislators By State</span>
 									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
 								</figure>
-								<div id="table-container">
+								<div id="leg-table-container"  class="table-container">
 								    <table class="table">
 										<tr>
 											<th>Party</th>
@@ -120,13 +120,13 @@
 					</div>  
 							<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="">
+						<div role="tabpanel" class="tab-pane active" id="bills-table">
 							<div ng-controller="myController">
 								<figure class="highlight">
 									<span id="highlight-bills-title">Active Bills</span>
 									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
 								</figure>
-								<div id="bills-table-container">
+								<div id="bills-table-container" class="table-container">
 								    <table class="table">
 										<tr>
 											<th>Bill ID</th>
@@ -139,9 +139,9 @@
 										<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 						 -->
 										<tr id="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
-											<td>{{b.id}}</td>
-											<td>{{b.type}}</td>
-											<td>{{b.title}}</td>
+											<td class="uppercase">{{b.id}}</td>
+											<td class="uppercase">{{b.type}}</td>
+											<td style="    width: 600px;">{{b.title}}</td>
 											<td><img style="width: 30px;
 						    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
 											<td>{{b.introduced}}</td>
@@ -159,22 +159,22 @@
 					<hr>
 					<div>
 						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" id="myTabs" role="tablist">
-							<li role="presentation"><a href="#bills-table" aria-controls="house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
-							<li role="presentation"><a href="#bills-table" aria-controls="senate"  data-order="orderByLastName" id="comm-senate" role="tab" data-toggle="tab">Senate</a></li>
-							<li role="presentation"><a href="#bills-table" aria-controls="senate"  data-order="orderByLastName" id="comm-joint" role="tab" data-toggle="tab">Joint</a></li>
+						<ul class="nav nav-tabs" id="commTabs" role="tablist">
+							<li role="presentation"><a class="active" href="#bills-table" aria-controls="comm-house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
+							<li role="presentation"><a href="#bills-table" aria-controls="comm-senate"  data-order="orderByLastName" id="comm-senate" role="tab" data-toggle="tab">Senate</a></li>
+							<li role="presentation"><a href="#bills-table" aria-controls="comm-joint"  data-order="orderByLastName" id="comm-joint" role="tab" data-toggle="tab">Joint</a></li>
 						</ul>
 				
 					</div>  
 							<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="">
+						<div role="tabpanel" class="tab-pane active" id="comm-table">
 							<div ng-controller="myController">
 								<figure class="highlight">
-									<span id="highlight-comm-title">Active Bills</span>
+									<span id="highlight-comm-title">House</span>
 									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
 								</figure>
-								<div id="comm-table-container">
+								<div id="comm-table-container" class="table-container">
 								    <table class="table">
 										<tr>
 											<th>Chamber</th>
@@ -207,6 +207,13 @@
   </body>
 </html>
 <style>
+	.table-container {
+		border: 1px solid #e1e1e8;
+	    border-radius: 4px;
+	    border-top: 0px;
+	    border-top-right-radius: 0px;
+	    border-top-left-radius: 0px;
+	}
 	#left-side a {
 		cursor: pointer;
 	}
@@ -238,6 +245,7 @@
 		padding:30px;
 	}
 	.highlight {
+		height: 50px;
 		font-weight: bold;
 		padding: 9px 14px;
 		background-color: #f7f7f9;
@@ -251,11 +259,9 @@
 	.left-buttons {
 		color: #CBCECE;
 	}
-	#table-container,
-	#bills-table-container {
-		border: 1px solid #e1e1e8;
-		border-top: 0px;
-	}
+	.uppercase {
+    text-transform: uppercase;
+}
 	a {
 		color:#d8d6d6;
 	}
