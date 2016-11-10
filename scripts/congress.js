@@ -159,6 +159,7 @@ myApp.controller("myController",function($scope) {
 	$('#tabButton').click(function(e) {
 		e.preventDefault();
 		if($('#left-side').css('display')=="table-cell") {
+			console.log("nono");
 			$('#left-side').css("display","none");
 		}
 		else {

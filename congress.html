@@ -37,7 +37,7 @@
 					</a>
 				</div>
 				<div>
-					<a>
+					<a data-target="comm-content">
 						<i style="color: #CBCECE;" class="fa fa-sign-in" aria-hidden="true"></i>
 						<span class="left-buttons">Committees</span>
 					</a>
@@ -138,13 +138,13 @@
 										</tr>
 										<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 						 -->
-										<tr id="bills-table-content" dir-paginate="b in billsOld | itemsPerPage:10 " pagination-id="bills-pagination">
-											<td>{{b.bill_id}}</td>
-											<td>{{b.bill_type}}</td>
-											<td>{{b.official_title}}</td>
+										<tr id="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
+											<td>{{b.id}}</td>
+											<td>{{b.type}}</td>
+											<td>{{b.title}}</td>
 											<td><img style="width: 30px;
 						    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
-											<td>{{b.introduced_on}}</td>
+											<td>{{b.introduced}}</td>
 											<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
 										</tr>
 								    </table>
@@ -154,11 +154,62 @@
 						</div>
 					</div>
 				</div>
+				<div style="display: none" id="comm-content" data-current="true">
+					<h1 style="font-weight: 400; margin-top: 0px;" id="comm-title">Committees</h1>
+					<hr>
+					<div>
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" id="myTabs" role="tablist">
+							<li role="presentation"><a href="#bills-table" aria-controls="house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
+							<li role="presentation"><a href="#bills-table" aria-controls="senate"  data-order="orderByLastName" id="comm-senate" role="tab" data-toggle="tab">Senate</a></li>
+							<li role="presentation"><a href="#bills-table" aria-controls="senate"  data-order="orderByLastName" id="comm-joint" role="tab" data-toggle="tab">Joint</a></li>
+						</ul>
+				
+					</div>  
+							<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="">
+							<div ng-controller="myController">
+								<figure class="highlight">
+									<span id="highlight-comm-title">Active Bills</span>
+									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
+								</figure>
+								<div id="comm-table-container">
+								    <table class="table">
+										<tr>
+											<th>Chamber</th>
+											<th>Committee ID</th>
+											<th>Name</th>
+											<th>Parent Committee</th>
+											<th>Contact</th>
+											<th>Office</th>
+										</tr>
+										<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+						 -->
+										<tr id="bills-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
+											<td><img style="width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+											<td>{{b.id}}</td>
+											<td>{{b.name}}</td>
+											<td>{{b.parent}}</td>
+											<td>{{b.contact}}</td> 
+											<td>{{b.office}}</td>
+										</tr>
+								    </table>
+								</div>
+								<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+						   </div>
+						</div>
+					</div>
+				</div>
+
 			</td>
 		</tr>
   </body>
 </html>
 <style>
+	#left-side a {
+		cursor: pointer;
+	}
 	#left-side div {
 	    padding: 20px;
 	    font-size: large;
