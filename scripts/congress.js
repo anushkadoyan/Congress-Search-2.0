@@ -171,16 +171,16 @@ myApp.controller("myController",function($scope) {
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {
 			$('.dist').css("display","none");
-			$('#highlight-title').innerHTML = "Legislators By Senate";
+			$('#highlight-title')[0].innerHTML = "Legislators By Senate";
 		}
 		else if (filterBy=="house") {
 			$('.dist').css("display","table-cell");
-			$('#highlight-title').innerHTML = "Legislators By House";
+			$('#highlight-title')[0].innerHTML = "Legislators By House";
 
 		}
 		else {
 			$('.dist').css("display","table-cell");
-			$('#highlight-title').innerHTML = "Legislators By State";
+			$('#highlight-title')[0].innerHTML = "Legislators By State";
 
 
 		}

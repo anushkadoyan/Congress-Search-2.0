@@ -53,7 +53,7 @@
 				<div id="leg-content" data-current="true">
 					<h1 style="font-weight: 400; margin-top: 0px;" id="title">Legislators</h1>
 					<hr>
-					<div>
+					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="myTabs" role="tablist">
 							<li role="presentation" class="active"><a href="#table" id="" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
@@ -61,39 +61,40 @@
 							<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
 						</ul>
 				
-					</div>  
 							<!-- Tab panes -->
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="state">
-							<div ng-controller="myController">
-								<figure class="highlight">
-									<span id="highlight-title">Legislators By State</span>
-									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
-								</figure>
-								<div id="leg-table-container"  class="table-container">
-								    <table class="table">
-										<tr>
-											<th>Party</th>
-											<th>Name</th>
-											<th>Chamber</th>
-											<th class="dist"  ng-hide="customFilter==senate">District</th>
-											<th>State</th>
-										</tr>
-										<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-						 -->
-										<tr id="table-content" dir-paginate="p in people | filter: customFilter | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
-											<td><img style="width: 30px;
-						    height: auto;" ng-src="{{p.partyImage}}"></td>
-											<td>{{p.lastName}}, {{p.firstName}}</td>
-											<td><img style="width: 30px;
-						    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
-											<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
-											<td>{{p.state}}</td>
-										</tr>
-								    </table>
-								</div>
-								<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
-						   </div>
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="state">
+								<div ng-controller="myController">
+									<figure class="highlight">
+										<span id="highlight-title">Legislators By State</span>
+										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
+									</figure>
+									<div id="leg-table-container"  class="table-container">
+									    <table class="table">
+											<tr>
+												<th>Party</th>
+												<th>Name</th>
+												<th>Chamber</th>
+												<th class="dist"  ng-hide="customFilter==senate">District</th>
+												<th>State</th>
+											</tr>
+											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+							 -->
+											<tr id="table-content" dir-paginate="p in people | filter: customFilter | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
+												<td><img style="width: 30px;
+							    height: auto;" ng-src="{{p.partyImage}}"></td>
+												<td>{{p.lastName}}, {{p.firstName}}</td>
+												<td><img style="width: 30px;
+							    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
+												<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
+												<td>{{p.state}}</td>
+											</tr>
+									    </table>
+									    									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
+
+									</div>
+							   </div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -110,54 +111,54 @@
 				<div style="display: none" id="bill-content" data-current="true">
 					<h1 style="font-weight: 400; margin-top: 0px;" id="bill-title">Bills</h1>
 					<hr>
-					<div>
+					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="myTabs" role="tablist">
 							<li role="presentation"><a href="#bills-table" aria-controls="house" data-order="orderByLastName" id="active" role="tab" data-toggle="tab">Active Bills</a></li>
 							<li role="presentation"><a href="#bills-table" aria-controls="senate"  data-order="orderByLastName" id="new" role="tab" data-toggle="tab">New Bills</a></li>
 						</ul>
 				
-					</div>  
 							<!-- Tab panes -->
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="bills-table">
-							<div ng-controller="myController">
-								<figure class="highlight">
-									<span id="highlight-bills-title">Active Bills</span>
-									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
-								</figure>
-								<div id="bills-table-container" class="table-container">
-								    <table class="table">
-										<tr>
-											<th>Bill ID</th>
-											<th>Bill Type</th>
-											<th>Title</th>
-											<th>Chamber</th>
-											<th>Introduced</th>
-											<th>Sponsor</th>
-										</tr>
-										<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-						 -->
-										<tr id="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
-											<td class="uppercase">{{b.id}}</td>
-											<td class="uppercase">{{b.type}}</td>
-											<td style="    width: 600px;">{{b.title}}</td>
-											<td><img style="width: 30px;
-						    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
-											<td>{{b.introduced}}</td>
-											<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
-										</tr>
-								    </table>
-								</div>
-								<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
-						   </div>
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="bills-table">
+								<div ng-controller="myController">
+									<figure class="highlight">
+										<span id="highlight-bills-title">Active Bills</span>
+										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
+									</figure>
+									<div id="bills-table-container" class="table-container">
+									    <table class="table">
+											<tr>
+												<th>Bill ID</th>
+												<th>Bill Type</th>
+												<th>Title</th>
+												<th>Chamber</th>
+												<th>Introduced</th>
+												<th>Sponsor</th>
+											</tr>
+											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+							 -->
+											<tr id="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
+												<td class="uppercase">{{b.id}}</td>
+												<td class="uppercase">{{b.type}}</td>
+												<td style="    width: 600px;">{{b.title}}</td>
+												<td><img style="width: 30px;
+							    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+												<td>{{b.introduced}}</td>
+												<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
+											</tr>
+									    </table>
+									</div>
+									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+							   </div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div style="display: none" id="comm-content" data-current="true">
 					<h1 style="font-weight: 400; margin-top: 0px;" id="comm-title">Committees</h1>
 					<hr>
-					<div>
+					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="commTabs" role="tablist">
 							<li role="presentation"><a class="active" href="#bills-table" aria-controls="comm-house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
@@ -165,39 +166,39 @@
 							<li role="presentation"><a href="#bills-table" aria-controls="comm-joint"  data-order="orderByLastName" id="comm-joint" role="tab" data-toggle="tab">Joint</a></li>
 						</ul>
 				
-					</div>  
 							<!-- Tab panes -->
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="comm-table">
-							<div ng-controller="myController">
-								<figure class="highlight">
-									<span id="highlight-comm-title">House</span>
-									<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
-								</figure>
-								<div id="comm-table-container" class="table-container">
-								    <table class="table">
-										<tr>
-											<th>Chamber</th>
-											<th>Committee ID</th>
-											<th>Name</th>
-											<th>Parent Committee</th>
-											<th>Contact</th>
-											<th>Office</th>
-										</tr>
-										<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-						 -->
-										<tr id="bills-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
-											<td><img style="width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
-											<td>{{b.id}}</td>
-											<td>{{b.name}}</td>
-											<td>{{b.parent}}</td>
-											<td>{{b.contact}}</td> 
-											<td>{{b.office}}</td>
-										</tr>
-								    </table>
-								</div>
-								<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
-						   </div>
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="comm-table">
+								<div ng-controller="myController">
+									<figure class="highlight">
+										<span id="highlight-comm-title">House</span>
+										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
+									</figure>
+									<div id="comm-table-container" class="table-container">
+									    <table class="table">
+											<tr>
+												<th>Chamber</th>
+												<th>Committee ID</th>
+												<th>Name</th>
+												<th>Parent Committee</th>
+												<th>Contact</th>
+												<th>Office</th>
+											</tr>
+											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+							 -->
+											<tr id="bills-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
+												<td><img style="width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+												<td>{{b.id}}</td>
+												<td>{{b.name}}</td>
+												<td>{{b.parent}}</td>
+												<td>{{b.contact}}</td> 
+												<td>{{b.office}}</td>
+											</tr>
+									    </table>
+									</div>
+									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+							   </div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -207,6 +208,11 @@
   </body>
 </html>
 <style>
+	.tabsAndTable {
+		background-color: white;
+		border: 1px solid #e1e1e8;
+
+	}
 	.table-container {
 		border: 1px solid #e1e1e8;
 	    border-radius: 4px;
@@ -255,6 +261,10 @@
 		border-bottom-left-radius: 0px;
 		border-bottom-right-radius: 0px;
 	    
+	}
+	dir-pagination-controls {
+		    margin-left: 30%;
+
 	}
 	.left-buttons {
 		color: #CBCECE;
