@@ -76,7 +76,7 @@
 												<th>Name</th>
 												<th>Chamber</th>
 												<th class="dist"  ng-hide="customFilter==senate">District</th>
-												<th>State</th>
+												<th colspan="2">State</th>
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
@@ -88,6 +88,7 @@
 							    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
 												<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
 												<td>{{p.state}}</td>
+												<td style="text-align:center; width: 200px !important;"><button class="btn btn-defualt btn-primary">View Details</button></td>
 											</tr>
 									    </table>
 									    									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
@@ -133,7 +134,7 @@
 												<th>Bill Type</th>
 												<th>Title</th>
 												<th>Chamber</th>
-												<th>Introduced</th>
+												<th>Introduced On</th>
 												<th>Sponsor</th>
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
@@ -141,11 +142,12 @@
 											<tr id="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
 												<td class="uppercase">{{b.id}}</td>
 												<td class="uppercase">{{b.type}}</td>
-												<td style="    width: 600px;">{{b.title}}</td>
+												<td style="    width: 300px !important;">{{b.title}}</td>
 												<td><img style="width: 30px;
 							    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
 												<td>{{b.introduced}}</td>
 												<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
+												<td style="text-align:center; width: 200px !important;"><button class="btn btn-defualt btn-primary">View Details</button></td>
 											</tr>
 									    </table>
 									</div>
@@ -211,6 +213,7 @@
 	.tabsAndTable {
 		background-color: white;
 		border: 1px solid #e1e1e8;
+		    box-shadow: 3px 2px 2px 2px #e1e1e8;
 
 	}
 	.table-container {
