@@ -173,19 +173,23 @@ myApp.controller("myController",function($scope, $filter) {
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 */
-
 	$('#myTabs a').click(function (e) {
+		
 		e.preventDefault();
-		$('.highlight input').css('display','block');
+			$scope.search="";
+		$('.highlight input').css('display','none');
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {
 			$('.dist').css("display","none");
 			$('#highlight-title')[0].innerHTML = "Legislators By Senate";
+			$('.highlight input').css('display','block');
+
 			orderBy='lastName';
 		}
 		else if (filterBy=="house") {
 			$('.dist').css("display","table-cell");
 			$('#highlight-title')[0].innerHTML = "Legislators By House";
+			$('.highlight input').css('display','block');
 			orderBy='lastName';
 		}
 		//state clicked
@@ -206,6 +210,51 @@ myApp.controller("myController",function($scope, $filter) {
 		});
 // 		$(this).tab('show')
 // 		console.log($scope.customOrder);
+	});
+	$scope.titleText = '';
+	$('#billsTabs a').click(function (e) {
+		$scope.currentBill = filterBy;
+		e.preventDefault();
+		$scope.search="";
+		
+		$('.highlight input').css('display','block');
+		var filterBy = $(this).attr('id');
+		
+		
+		if (filterBy== "active") {
+			$('#highlight-bills-title')[0].innerHTML = "Active Bills";
+			orderBy='introduced';
+		
+			
+		}
+		else if (filterBy=="new") {
+			$('#highlight-bills-title')[0].innerHTML = "New Bills";
+			orderBy='introduced';
+			
+			
+		}
+		$scope.bills = function() {
+			if (filterBy== "active") {
+				return $scope.billsOld;
+			} else {
+				return $scope.billsNew;
+			}
+
+		};
+		$scope.$apply(function() {
+			$scope.customFilter = filterBy;
+			$scope.customOrder = orderBy;
+		});
+// 		$(this).tab('show')
+// 		console.log($scope.customOrder);
+	console.log($scope.bills);
+	});	
+	
+	
+	$('.highlight input').on("change", function(e) {
+		e.preventDefault();
+		$('.dist').css("display","none");
+
 	});
 	$('#left-side a').on("click", function(e) { 
 		e.preventDefault(); 
