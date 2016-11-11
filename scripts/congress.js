@@ -154,8 +154,9 @@ myApp.controller("myController",function($scope, $filter) {
 	$scope.D="d.jpg";
 	$scope.pageSize = 5;
 	$scope.currentPage = 1;
-	$scope.customFilter = '';
+	$scope.customFilter = 'state';
 	$scope.customOrder = '';
+	//stack button
 	$('#tabButton').click(function(e) {
 		e.preventDefault();
 		if($('#left-side').css('display')=="table-cell") {
@@ -175,23 +176,26 @@ myApp.controller("myController",function($scope, $filter) {
 
 	$('#myTabs a').click(function (e) {
 		e.preventDefault();
+		$('.highlight input').css('display','block');
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {
 			$('.dist').css("display","none");
 			$('#highlight-title')[0].innerHTML = "Legislators By Senate";
-			orderBy = "senate";
+			orderBy='lastName';
 		}
 		else if (filterBy=="house") {
 			$('.dist').css("display","table-cell");
 			$('#highlight-title')[0].innerHTML = "Legislators By House";
-			orderBy = "house";
+			orderBy='lastName';
 		}
 		//state clicked
 		else {
 			$('.dist').css("display","table-cell");
 			$('#highlight-title')[0].innerHTML = "Legislators By State";
-			orderBy="state";
-					$filter('orderBy')($scope.orderBy, ['orderByState', 'orderByLastName']);
+			orderBy=['state', 'lastName'];
+// 			$filter('orderBy')($scope.customOrder, ['orderByState', 'orderByLastName']);
+			$('.highlight input').css('display','none');
+
 
 		}//orderByState, orderByLastName
 

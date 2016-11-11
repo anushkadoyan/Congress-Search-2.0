@@ -56,8 +56,8 @@
 					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="myTabs" role="tablist">
-							<li role="presentation" class="active"><a href="#table" id="" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
-							<li role="presentation"><a href="#table" aria-controls="house" data-order="orderByLastName" id="house" role="tab" data-toggle="tab">House</a></li>
+							<li role="presentation" class="active"><a href="#table" id="" ng-click="[orderByState, orderByLastName]" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
+							<li role="presentation" ><a href="#table" aria-controls="house" data-order="orderByLastName" ng-click='customFilter="house"' id="house" role="tab" data-toggle="tab">House</a></li>
 							<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
 						</ul>
 				
@@ -67,7 +67,8 @@
 								<div ng-controller="myController">
 									<figure class="highlight">
 										<span id="highlight-title">Legislators By State</span>
-										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
+<!-- 										ng-model="customFilter" -->
+										<input display="none" style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" />
 									</figure>
 									<div id="leg-table-container"  class="table-container">
 									    <table class="table">
@@ -75,7 +76,7 @@
 												<th>Party</th>
 												<th>Name</th>
 												<th>Chamber</th>
-												<th class="dist"  ng-hide="customFilter==senate">District</th>
+												<th class="dist" ng-hide="customFilter==senate">District</th>
 												<th colspan="2">State</th>
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
@@ -89,7 +90,7 @@
 												<td style="text-align:center; width: 200px !important;"><button class="btn btn-defualt btn-primary">View Details</button></td>
 											</tr>
 									    </table>
-									    									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
+									    <dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
 
 									</div>
 							   </div>
@@ -113,7 +114,7 @@
 					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="myTabs" role="tablist">
-							<li role="presentation"><a href="#bills-table" aria-controls="house" data-order="orderByLastName" id="active" role="tab" data-toggle="tab">Active Bills</a></li>
+							<li role="presentation"  class="active" ><a href="#bills-table" aria-controls="house" data-order="orderByLastName" id="active" role="tab" data-toggle="tab">Active Bills</a></li>
 							<li role="presentation"><a href="#bills-table" aria-controls="senate"  data-order="orderByLastName" id="new" role="tab" data-toggle="tab">New Bills</a></li>
 						</ul>
 				
@@ -161,7 +162,7 @@
 					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="commTabs" role="tablist">
-							<li role="presentation"><a class="active" href="#bills-table" aria-controls="comm-house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
+							<li role="presentation"  class="active" ><a href="#bills-table" aria-controls="comm-house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
 							<li role="presentation"><a href="#bills-table" aria-controls="comm-senate"  data-order="orderByLastName" id="comm-senate" role="tab" data-toggle="tab">Senate</a></li>
 							<li role="presentation"><a href="#bills-table" aria-controls="comm-joint"  data-order="orderByLastName" id="comm-joint" role="tab" data-toggle="tab">Joint</a></li>
 						</ul>
