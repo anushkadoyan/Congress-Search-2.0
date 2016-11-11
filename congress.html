@@ -12,13 +12,13 @@
 		<script src="scripts/dirPagination.js"></script>
 	
 	</head>
-	<body style="    height: 100%;">
+	<body style="height: 100%;">
 		<div id="header">
 			<button style="float: left" id="tabButton" class="btn btn-default">
 	
 		 		<i  class="fa fa-bars" aria-hidden="true"></i>
 			</button>
-		 <img style="width: 80px; vertical-align: sub;" src="images/sunlight.png"/>
+			<a target=" _blank" href="http://sunlightfoundation.com/"><img style="width: 80px; vertical-align: sub;" src="images/sunlight.png"/></a>	
 		  <span style="font-size: x-large">Congress API</span>
 	  </div>
 	<table style="width: 100%;height: 100%;">
@@ -51,7 +51,7 @@
 			</td>
 			<td id="right-side">
 				<div id="leg-content" data-current="true">
-					<h1 style="font-weight: 400; margin-top: 0px;" id="title">Legislators</h1>
+					<h1  class="h1" style="margin-top: 0px;" id="title">Legislators</h1>
 					<hr>
 					<div class="tabsAndTable">
 						<!-- Nav tabs -->
@@ -80,12 +80,10 @@
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
-											<tr id="table-content" dir-paginate="p in people | filter: customFilter | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
-												<td><img style="width: 30px;
-							    height: auto;" ng-src="{{p.partyImage}}"></td>
+											<tr class="leg-table-content" dir-paginate="p in people | filter: customFilter | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
+												<td><img style="width: 30px; margin: 0px 10px; height: auto;" ng-src="{{p.partyImage}}"></td>
 												<td>{{p.lastName}}, {{p.firstName}}</td>
-												<td><img style="width: 30px;
-							    height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
+												<td><img style="width: 30px;margin: 0px 10px; height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
 												<td class="dist" ng-hide="customFilter==senate">{{p.district}}</td>
 												<td>{{p.state}}</td>
 												<td style="text-align:center; width: 200px !important;"><button class="btn btn-defualt btn-primary">View Details</button></td>
@@ -139,7 +137,7 @@
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
-											<tr id="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
+											<tr class="bills-table-content" dir-paginate="b in billsOld | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
 												<td class="uppercase">{{b.id}}</td>
 												<td class="uppercase">{{b.type}}</td>
 												<td style="    width: 300px !important;">{{b.title}}</td>
@@ -188,8 +186,8 @@
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
-											<tr id="bills-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
-												<td><img style="width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+											<tr class="comm-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="bills-pagination">
+												<td><img style="margin: 0px 10px; width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
 												<td>{{b.id}}</td>
 												<td>{{b.name}}</td>
 												<td>{{b.parent}}</td>

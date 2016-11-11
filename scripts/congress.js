@@ -3,7 +3,7 @@ var myApp = angular.module("myModule",  ['angularUtils.directives.dirPagination'
 
    states = {     "AL": "Alabama",     "AK": "Alaska",     "AS": "American Samoa",     "AZ": "Arizona",     "AR": "Arkansas",     "CA": "California",     "CO": "Colorado",     "CT": "Connecticut",     "DE": "Delaware",     "DC": "District Of Columbia",     "FM": "Federated States Of Micronesia",     "FL": "Florida",     "GA": "Georgia",     "GU": "Guam",     "HI": "Hawaii",     "ID": "Idaho",     "IL": "Illinois",     "IN": "Indiana",     "IA": "Iowa",     "KS": "Kansas",     "KY": "Kentucky",     "LA": "Louisiana",     "ME": "Maine",     "MH": "Marshall Islands",     "MD": "Maryland",     "MA": "Massachusetts",     "MI": "Michigan",     "MN": "Minnesota",     "MS": "Mississippi",     "MO": "Missouri",     "MT": "Montana",     "NE": "Nebraska",     "NV": "Nevada",     "NH": "New Hampshire",     "NJ": "New Jersey",     "NM": "New Mexico",     "NY": "New York",     "NC": "North Carolina",     "ND": "North Dakota",     "MP": "Northern Mariana Islands",     "OH": "Ohio",     "OK": "Oklahoma",     "OR": "Oregon",     "PW": "Palau",     "PA": "Pennsylvania",     "PR": "Puerto Rico",     "RI": "Rhode Island",     "SC": "South Carolina",     "SD": "South Dakota",     "TN": "Tennessee",     "TX": "Texas",     "UT": "Utah",     "VT": "Vermont",     "VI": "Virgin Islands",     "VA": "Virginia",     "WA": "Washington",     "WV": "West Virginia",     "WI": "Wisconsin",     "WY": "Wyoming" }
 
-myApp.controller("myController",function($scope) {
+myApp.controller("myController",function($scope, $filter) {
 	
 		$.ajax({
         url: '../main.php',
@@ -166,25 +166,36 @@ myApp.controller("myController",function($scope) {
 			$('#left-side').css("display","table-cell");
 		}
 	});
+/*
+	$scope.sort = function(keyname){
+        $scope.sortKey = keyname;   //set the sortKey to the param passed
+        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    }
+*/
+
 	$('#myTabs a').click(function (e) {
 		e.preventDefault();
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {
 			$('.dist').css("display","none");
 			$('#highlight-title')[0].innerHTML = "Legislators By Senate";
+			orderBy = "senate";
 		}
 		else if (filterBy=="house") {
 			$('.dist').css("display","table-cell");
 			$('#highlight-title')[0].innerHTML = "Legislators By House";
-
+			orderBy = "house";
 		}
+		//state clicked
 		else {
 			$('.dist').css("display","table-cell");
 			$('#highlight-title')[0].innerHTML = "Legislators By State";
+			orderBy="state";
+					$filter('orderBy')($scope.orderBy, ['orderByState', 'orderByLastName']);
 
+		}//orderByState, orderByLastName
 
-		}
-		var orderBy = $(this).attr('data-order');
+// 		var orderBy = $(this).attr('data-order');
 		$scope.$apply(function() {
 			$scope.customFilter = filterBy;
 			$scope.customOrder = orderBy;
