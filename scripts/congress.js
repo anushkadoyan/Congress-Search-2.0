@@ -1,7 +1,7 @@
 var myApp = angular.module("myModule",  ['angularUtils.directives.dirPagination']);
 
 
-   states = {     "AL": "Alabama",     "AK": "Alaska",     "AS": "American Samoa",     "AZ": "Arizona",     "AR": "Arkansas",     "CA": "California",     "CO": "Colorado",     "CT": "Connecticut",     "DE": "Delaware",     "DC": "District Of Columbia",     "FM": "Federated States Of Micronesia",     "FL": "Florida",     "GA": "Georgia",     "GU": "Guam",     "HI": "Hawaii",     "ID": "Idaho",     "IL": "Illinois",     "IN": "Indiana",     "IA": "Iowa",     "KS": "Kansas",     "KY": "Kentucky",     "LA": "Louisiana",     "ME": "Maine",     "MH": "Marshall Islands",     "MD": "Maryland",     "MA": "Massachusetts",     "MI": "Michigan",     "MN": "Minnesota",     "MS": "Mississippi",     "MO": "Missouri",     "MT": "Montana",     "NE": "Nebraska",     "NV": "Nevada",     "NH": "New Hampshire",     "NJ": "New Jersey",     "NM": "New Mexico",     "NY": "New York",     "NC": "North Carolina",     "ND": "North Dakota",     "MP": "Northern Mariana Islands",     "OH": "Ohio",     "OK": "Oklahoma",     "OR": "Oregon",     "PW": "Palau",     "PA": "Pennsylvania",     "PR": "Puerto Rico",     "RI": "Rhode Island",     "SC": "South Carolina",     "SD": "South Dakota",     "TN": "Tennessee",     "TX": "Texas",     "UT": "Utah",     "VT": "Vermont",     "VI": "Virgin Islands",     "VA": "Virginia",     "WA": "Washington",     "WV": "West Virginia",     "WI": "Wisconsin",     "WY": "Wyoming" }
+states = {     "AL": "Alabama",     "AK": "Alaska",     "AS": "American Samoa",     "AZ": "Arizona",     "AR": "Arkansas",     "CA": "California",     "CO": "Colorado",     "CT": "Connecticut",     "DE": "Delaware",     "DC": "District Of Columbia",     "FM": "Federated States Of Micronesia",     "FL": "Florida",     "GA": "Georgia",     "GU": "Guam",     "HI": "Hawaii",     "ID": "Idaho",     "IL": "Illinois",     "IN": "Indiana",     "IA": "Iowa",     "KS": "Kansas",     "KY": "Kentucky",     "LA": "Louisiana",     "ME": "Maine",     "MH": "Marshall Islands",     "MD": "Maryland",     "MA": "Massachusetts",     "MI": "Michigan",     "MN": "Minnesota",     "MS": "Mississippi",     "MO": "Missouri",     "MT": "Montana",     "NE": "Nebraska",     "NV": "Nevada",     "NH": "New Hampshire",     "NJ": "New Jersey",     "NM": "New Mexico",     "NY": "New York",     "NC": "North Carolina",     "ND": "North Dakota",     "MP": "Northern Mariana Islands",     "OH": "Ohio",     "OK": "Oklahoma",     "OR": "Oregon",     "PW": "Palau",     "PA": "Pennsylvania",     "PR": "Puerto Rico",     "RI": "Rhode Island",     "SC": "South Carolina",     "SD": "South Dakota",     "TN": "Tennessee",     "TX": "Texas",     "UT": "Utah",     "VT": "Vermont",     "VI": "Virgin Islands",     "VA": "Virginia",     "WA": "Washington",     "WV": "West Virginia",     "WI": "Wisconsin",     "WY": "Wyoming" }
 
 myApp.controller("myController",function($scope, $filter) {
 	
@@ -148,6 +148,7 @@ myApp.controller("myController",function($scope, $filter) {
         error: function(xhr, status, error){
         }
     });
+    $scope.stateSelects = ['All States','Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 	$scope.orderByState="state";
 	$scope.orderByLastName="lastName";
 	$scope.R="r.jpg";
@@ -157,6 +158,10 @@ myApp.controller("myController",function($scope, $filter) {
 	$scope.customFilter = 'state';
 	$scope.customOrder = '';
 	//stack button
+	$(document).on("ready", function (e) {
+		$('#myTabs [role="presentation"]:first a').click();
+	});
+
 	$('#tabButton').click(function(e) {
 		e.preventDefault();
 		if($('#left-side').css('display')=="table-cell") {
@@ -167,29 +172,26 @@ myApp.controller("myController",function($scope, $filter) {
 			$('#left-side').css("display","table-cell");
 		}
 	});
-/*
-	$scope.sort = function(keyname){
-        $scope.sortKey = keyname;   //set the sortKey to the param passed
-        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-    }
-*/
+
 	$('#myTabs a').click(function (e) {
 		
 		e.preventDefault();
 			$scope.search="";
+			$scope.select1 = "";
 		$('.highlight input').css('display','none');
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {
 			$('.dist').css("display","none");
 			$('#highlight-title')[0].innerHTML = "Legislators By Senate";
 			$('.highlight input').css('display','block');
-
+			$('.highlight select').css('display','none');
 			orderBy='lastName';
 		}
 		else if (filterBy=="house") {
 			$('.dist').css("display","table-cell");
 			$('#highlight-title')[0].innerHTML = "Legislators By House";
 			$('.highlight input').css('display','block');
+			$('.highlight select').css('display','none');
 			orderBy='lastName';
 		}
 		//state clicked
@@ -199,6 +201,7 @@ myApp.controller("myController",function($scope, $filter) {
 			orderBy=['state', 'lastName'];
 // 			$filter('orderBy')($scope.customOrder, ['orderByState', 'orderByLastName']);
 			$('.highlight input').css('display','none');
+			$('.highlight select').css('display','block');
 
 
 		}//orderByState, orderByLastName
@@ -247,7 +250,6 @@ myApp.controller("myController",function($scope, $filter) {
 		});
 // 		$(this).tab('show')
 // 		console.log($scope.customOrder);
-	console.log($scope.bills);
 	});	
 	
 	
@@ -256,17 +258,22 @@ myApp.controller("myController",function($scope, $filter) {
 		$('.dist').css("display","none");
 
 	});
+	
 	$('#left-side a').on("click", function(e) { 
+		
 		e.preventDefault(); 
+		
 		var target = $(this).attr("data-target");
 		$('#right-side [data-current="true"]').css('display',"none");
 		$('#right-side [data-current="true"]').attr('data-current',"false");
-
+		
 		var targetNode = document.getElementById(target);   
 		$(targetNode).css("display","block");
 		$(targetNode).attr('data-current',"true");
+		
+		$(targetNode).find('[role="presentation"]:first a').click();
+		
 	});
-	console.log($scope);
 });
 
 
