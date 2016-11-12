@@ -173,11 +173,18 @@ myApp.controller("myController",function($scope, $filter) {
 		}
 	});
 
+	$scope.ignoreNullComparator = function(actual, expected){
+	    if (expected === "All States") {
+	        return true;
+	    } else {
+	        return angular.equals(expected, actual);
+	    }
+	};
 	$('#myTabs a').click(function (e) {
 		
 		e.preventDefault();
 			$scope.search="";
-			$scope.select1 = "";
+			$scope.select1 = "All States";
 		$('.highlight input').css('display','none');
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {

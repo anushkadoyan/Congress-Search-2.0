@@ -68,7 +68,7 @@
 										<span id="highlight-title">Legislators By State</span>
 <!-- 										ng-model="customFilter" -->
 										<input style="width: 200px; display:none; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search" />
-									    <select style="float:right; height: 30px;" value="All States" ng-model="select1" >
+									    <select style="float:right; height: 30px;" ng-init="select1 ='All States'" ng-model="select1" >
 									    	<option ng-repeat="row in stateSelects" value="{{row}}">{{row}}</option>
 									    </select>									</figure>
 									<div id="leg-table-container"  class="table-container">
@@ -82,7 +82,7 @@
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
-											<tr class="leg-table-content" dir-paginate="p in people | filter: customFilter | filter: search | filter: select1 | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
+											<tr class="leg-table-content" dir-paginate="p in people | filter: customFilter | filter: search | filter: select1:ignoreNullComparator | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
 												<td><img style="width: 30px; margin: 0px 10px; height: auto;" ng-src="{{p.partyImage}}"></td>
 												<td>{{p.lastName}}, {{p.firstName}}</td>
 												<td><img style="width: 30px;margin: 0px 10px; height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
