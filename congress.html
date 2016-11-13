@@ -95,7 +95,7 @@
 														<td class="dist">{{p.district}}</td>
 														<td>{{p.state}}</td>
 														<td style="text-align:center; width: 200px !important;">
-															<button ng-click="buttonClicked()" class="btn btn-defualt btn-primary detailsButton" data-target="#legislator-carousel" data-slide-to="1">View Details</button>
+															<button ng-click="buttonClicked($event)" class="btn btn-defualt btn-primary detailsButton" data-target="#legislator-carousel" data-targetslide="{{p.id}}">View Details</button>
 														</td>
 													</tr>
 											    </table>

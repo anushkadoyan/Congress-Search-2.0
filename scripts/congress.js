@@ -38,6 +38,7 @@ myApp.controller("myController",function($scope, $filter) {
 				}
 				$scope.$apply(function() {
 					$scope.people.push({
+						"id":obj.bioguide_id,
 						"party": obj.party,
 						"firstName": obj.first_name,
 						"lastName": obj.last_name,
@@ -198,18 +199,53 @@ myApp.controller("myController",function($scope, $filter) {
    });
 */
 
+	//view detail button clicked
+	$scope.buttonClicked = function(obj){
 
-	$scope.buttonClicked = function(){
-//   		alert("Task Id is ");
-		console.log("button clicked");
-		var id = $(this).attr('name');
 
-//   	$('.carousel').carousel();
-	//  Append a slide to the carousel div
-		var a = $('<div class="item" id="' + id + '"></div>');
-		a.appendTo('.carousel-inner');
+
+	
+		
+	if(elementExists) {
+		var index = $('#Zendesk-carousel .carousel-inner #'+id).index();
+		$('#Zendesk-carousel').carousel(index);
+		$(ticketID).css('border-left','3px solid #78a300');
+		$('.Zendesk-controls').on('click', function() {
+			$(ticketID).css('border-left','none');
+		});
+		//find div with same id
+		$('p.expander').expander({
+			expandText: '[...]',
+			expandEffect: 'slideDown',
+			collapseEffect: 'slideUp',
+			userCollapseText: '[^]'
+		});
+
+	} //if(elementExists)	
+
+		if(obj.target.attributes[3] && obj.target.attributes[3].value.length) {
+			var targetId = obj.target.attributes[3].value;
+		}
+			var targetIdHash = '#'+targetId;
+		var elementExists = document.getElementById(targetId);
+		if(elementExists) {
+			var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
+
+		} else {
+			//  Append a slide to the carousel div
+			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>');
+			a.appendTo('.carousel-inner');
+			var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
+	
+		}
+
+		$('#legislator-carousel').carousel(index);		
+
+
 
   	};
+  	
+  	//ignore All States option in dropdown
 	$scope.ignoreNullComparator = function(actual, expected){
 	    if (expected === "All States") {
 	        return true;
@@ -220,8 +256,8 @@ myApp.controller("myController",function($scope, $filter) {
 	$('#myTabs a').click(function (e) {
 		
 		e.preventDefault();
-			$scope.search="";
-			$scope.select1 = "All States";
+		$scope.search="";
+		$scope.select1 = "All States";
 		$('.highlight input').css('display','none');
 		var filterBy = $(this).attr('id');
 		if (filterBy== "senate") {
