@@ -160,19 +160,56 @@ myApp.controller("myController",function($scope, $filter) {
 	//stack button
 	$(document).on("ready", function (e) {
 		$('#myTabs [role="presentation"]:first a').click();
+		
 	});
+	$(function() {
+		$('#left-side a:first').click();
+		});
+		 $(window).on("load", function() {
 
+		$('.detailsButton').on("click", function(e) {
+			console.log('asdf');
+				e.preventDefault();
+				alert("ASDF");
+			});
+			});
 	$('#tabButton').click(function(e) {
 		e.preventDefault();
 		if($('#left-side').css('display')=="table-cell") {
 			console.log("nono");
 			$('#left-side').css("display","none");
-		}
+		}			
 		else {
 			$('#left-side').css("display","table-cell");
 		}
 	});
+/*
+	myApp.directive('button', function(){
+        return {
+           restrict:'A',
+           link:function(scope, elem, attrs){
+	           
+               // here elem is div with attribute 'data-button' so:
+               console.loge(elem.button());
+               // angular.element(elem).button(); // with jqLite
+               // $(elem).button();
+           }
+        };
+   });
+*/
 
+
+	$scope.buttonClicked = function(){
+//   		alert("Task Id is ");
+		console.log("button clicked");
+		var id = $(this).attr('name');
+
+//   	$('.carousel').carousel();
+	//  Append a slide to the carousel div
+		var a = $('<div class="item" id="' + id + '"></div>');
+		a.appendTo('.carousel-inner');
+
+  	};
 	$scope.ignoreNullComparator = function(actual, expected){
 	    if (expected === "All States") {
 	        return true;
@@ -281,6 +318,9 @@ myApp.controller("myController",function($scope, $filter) {
 		$(targetNode).find('[role="presentation"]:first a').click();
 		
 	});
+	
+	
+	
 });
 
 

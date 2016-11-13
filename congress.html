@@ -53,52 +53,72 @@
 				<div id="leg-content" data-current="true">
 					<h1  class="h1" style="margin-top: 0px;" id="title">Legislators</h1>
 					<hr>
-					<div class="tabsAndTable">
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" id="myTabs" role="tablist">
-							<li role="presentation" class="active"><a href="#table" id="" ng-click="[orderByState, orderByLastName]" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
-							<li role="presentation" ><a href="#table" aria-controls="house" data-order="orderByLastName" ng-click='customFilter="house"' id="house" role="tab" data-toggle="tab">House</a></li>
-							<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
-						</ul>
-				
-							<!-- Tab panes -->
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane active" id="table">
-									<figure class="highlight">
-										<span id="highlight-title">Legislators By State</span>
-<!-- 										ng-model="customFilter" -->
-										<input style="width: 200px; display:none; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search" />
-									    <select style="float:right; height: 30px;" ng-init="select1 ='All States'" ng-model="select1" >
-									    	<option ng-repeat="row in stateSelects" value="{{row}}">{{row}}</option>
-									    </select>									</figure>
-									<div id="leg-table-container"  class="table-container">
-									    <table class="table">
-											<tr>
-												<th>Party</th>
-												<th>Name</th>
-												<th>Chamber</th>
-												<th class="dist" >District</th>
-												<th colspan="2">State</th>
-											</tr>
-											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-							 -->
-											<tr class="leg-table-content" dir-paginate="p in people | filter: customFilter | filter: search | filter: select1:ignoreNullComparator | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
-												<td><img style="width: 30px; margin: 0px 10px; height: auto;" ng-src="{{p.partyImage}}"></td>
-												<td>{{p.lastName}}, {{p.firstName}}</td>
-												<td><img style="width: 30px;margin: 0px 10px; height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
-												<td class="dist">{{p.district}}</td>
-												<td>{{p.state}}</td>
-												<td style="text-align:center; width: 200px !important;"><button class="btn btn-defualt btn-primary">View Details</button></td>
-											</tr>
-									    </table>
-									    <dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
-
+					
+					<div id="legislator-carousel" class="carousel slide" data-ride="carousel" data-interval="">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active" data-id="0">
+					
+								<div class="tabsAndTable">
+									<!-- Nav tabs -->
+									<ul class="nav nav-tabs" id="myTabs" role="tablist">
+										<li role="presentation" class="active"><a href="#table" id="" ng-click="[orderByState, orderByLastName]" data-order="[orderByState, orderByLastName]" aria-controls="state" role="tab" data-toggle="tab">By State</a></li>
+										<li role="presentation" ><a href="#table" aria-controls="house" data-order="orderByLastName" ng-click='customFilter="house"' id="house" role="tab" data-toggle="tab">House</a></li>
+										<li role="presentation"><a href="#table" aria-controls="senate"  data-order="orderByLastName" id="senate" role="tab" data-toggle="tab">Senate</a></li>
+									</ul>
+							
+										<!-- Tab panes -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="table">
+											<figure class="highlight">
+												<span id="highlight-title">Legislators By State</span>
+		<!-- 										ng-model="customFilter" -->
+												<input style="width: 200px; display:none; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search" />
+											    <select style="float:right; height: 30px;" ng-init="select1 ='All States'" ng-model="select1" >
+											    	<option ng-repeat="row in stateSelects" value="{{row}}">{{row}}</option>
+											    </select>									
+											</figure>
+											<div id="leg-table-container"  class="table-container">
+											    <table class="table">
+													<tr>
+														<th>Party</th>
+														<th>Name</th>
+														<th>Chamber</th>
+														<th class="dist" >District</th>
+														<th colspan="2">State</th>
+													</tr>
+													<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+									 -->
+													<tr class="leg-table-content" dir-paginate="p in people | filter: customFilter | filter: search | filter: select1:ignoreNullComparator | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
+														<td><img style="width: 30px; margin: 0px 10px; height: auto;" ng-src="{{p.partyImage}}"></td>
+														<td>{{p.lastName}}, {{p.firstName}}</td>
+														<td><img style="width: 30px;margin: 0px 10px; height: auto;" ng-src="{{p.chamberImage}}">{{p.chamber}}</td>
+														<td class="dist">{{p.district}}</td>
+														<td>{{p.state}}</td>
+														<td style="text-align:center; width: 200px !important;">
+															<button ng-click="buttonClicked()" class="btn btn-defualt btn-primary detailsButton" data-target="#legislator-carousel" data-slide-to="1">View Details</button>
+														</td>
+													</tr>
+											    </table>
+											    <dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
+		
+											</div>
+										</div>
 									</div>
+								</div>
+							</div> <!-- end first item in carousel-->
+							<div class="item" data-id="1">
+								<a href="#legislator-carousel"  data-slide-to="0">
+									<button class="btn btn-default">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+									</button>
+								</a>
 							</div>
+
 						</div>
 					</div>
 				</div>
-				
+
+
 <!--
 				"id": obj.bill_id,
 						"type": obj.bill_type,
