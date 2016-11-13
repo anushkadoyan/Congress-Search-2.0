@@ -21,7 +21,20 @@ $committees = request("http://104.198.0.197:8080/committees?per_page=all&fields=
 $billsOld = request("http://104.198.0.197:8080/bills?per_page=50&history.active=true&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
 $billsNew = request("http://104.198.0.197:8080/bills?per_page=50&history.active=false&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
 $content = array($legislators,$committees,$billsOld,$billsNew);
-echo (json_encode($content));
+
+
+
+if (isset($_REQUEST['action']) && !empty($_REQUEST['action'])) {
+    $action = $_REQUEST['action'];
+    if($action=="content") {
+		echo (json_encode($content));
+   } else {
+	   echo "asdfsd";
+   }
+}
+
+
+// echo (json_encode($content));
 
 
 function request($url) {
