@@ -11,7 +11,6 @@ myApp.controller("myController",function($scope, $filter) {
 //         dataType: "json",
         data:  {action: "content"},
         success: function(data) {
-	        console.log(typeof data);
 	        data = JSON.parse(data);
 // 	        data = JSON.stringify(data);
 // 			data = read_from_local_file('leg.json');
@@ -151,8 +150,6 @@ myApp.controller("myController",function($scope, $filter) {
         },
         error: function(xhr, status, error){
 	        console.log(error);
-	        console.log(status);
-	        	        console.log(xhr);
 
         }
     });
@@ -184,7 +181,6 @@ myApp.controller("myController",function($scope, $filter) {
 	$('#tabButton').click(function(e) {
 		e.preventDefault();
 		if($('#left-side').css('display')=="table-cell") {
-			console.log("nono");
 			$('#left-side').css("display","none");
 		}			
 		else {
@@ -328,7 +324,6 @@ myApp.controller("myController",function($scope, $filter) {
 		    type: 'GET',
 			data: {action: "leg", id: targetId},
 			success: function(data) {
-			   console.log(data);
 		 	},
 		 	error: function(xhr, status, error){
 	        console.log(error);
