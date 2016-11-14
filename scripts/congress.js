@@ -1,7 +1,7 @@
 var myApp = angular.module("myModule",  ['angularUtils.directives.dirPagination']);
 
 
-states = {     "AL": "Alabama",     "AK": "Alaska",     "AS": "American Samoa",     "AZ": "Arizona",     "AR": "Arkansas",     "CA": "California",     "CO": "Colorado",     "CT": "Connecticut",     "DE": "Delaware",     "DC": "District Of Columbia",     "FM": "Federated States Of Micronesia",     "FL": "Florida",     "GA": "Georgia",     "GU": "Guam",     "HI": "Hawaii",     "ID": "Idaho",     "IL": "Illinois",     "IN": "Indiana",     "IA": "Iowa",     "KS": "Kansas",     "KY": "Kentucky",     "LA": "Louisiana",     "ME": "Maine",     "MH": "Marshall Islands",     "MD": "Maryland",     "MA": "Massachusetts",     "MI": "Michigan",     "MN": "Minnesota",     "MS": "Mississippi",     "MO": "Missouri",     "MT": "Montana",     "NE": "Nebraska",     "NV": "Nevada",     "NH": "New Hampshire",     "NJ": "New Jersey",     "NM": "New Mexico",     "NY": "New York",     "NC": "North Carolina",     "ND": "North Dakota",     "MP": "Northern Mariana Islands",     "OH": "Ohio",     "OK": "Oklahoma",     "OR": "Oregon",     "PW": "Palau",     "PA": "Pennsylvania",     "PR": "Puerto Rico",     "RI": "Rhode Island",     "SC": "South Carolina",     "SD": "South Dakota",     "TN": "Tennessee",     "TX": "Texas",     "UT": "Utah",     "VT": "Vermont",     "VI": "Virgin Islands",     "VA": "Virginia",     "WA": "Washington",     "WV": "West Virginia",     "WI": "Wisconsin",     "WY": "Wyoming" }
+states = {     "AL": "Alabama",     "AK": "Alaska",     "AS": "American Samoa",     "AZ": "Arizona",     "AR": "Arkansas",     "CA": "California",     "CO": "Colorado",     "CT": "Connecticut",     "DE": "Delaware",     "DC": "District Of Columbia",    "FL": "Florida",     "GA": "Georgia",     "GU": "Guam",     "HI": "Hawaii",     "ID": "Idaho",     "IL": "Illinois",     "IN": "Indiana",     "IA": "Iowa",     "KS": "Kansas",     "KY": "Kentucky",     "LA": "Louisiana",     "ME": "Maine",     "MH": "Marshall Islands",     "MD": "Maryland",     "MA": "Massachusetts",     "MI": "Michigan",     "MN": "Minnesota",     "MS": "Mississippi",     "MO": "Missouri",     "MT": "Montana",     "NE": "Nebraska",     "NV": "Nevada",     "NH": "New Hampshire",     "NJ": "New Jersey",     "NM": "New Mexico",     "NY": "New York",     "NC": "North Carolina",     "ND": "North Dakota",     "MP": "Northern Mariana Islands",     "OH": "Ohio",     "OK": "Oklahoma",     "OR": "Oregon",     "PW": "Palau",     "PA": "Pennsylvania",     "PR": "Puerto Rico",     "RI": "Rhode Island",     "SC": "South Carolina",     "SD": "South Dakota",     "TN": "Tennessee",     "TX": "Texas",     "UT": "Utah",     "VT": "Vermont",     "VI": "Virgin Islands",     "VA": "Virginia",     "WA": "Washington",     "WV": "West Virginia",     "WI": "Wisconsin",     "WY": "Wyoming" }
 
 myApp.controller("myController",function($scope, $filter) {
 	
@@ -11,7 +11,9 @@ myApp.controller("myController",function($scope, $filter) {
 //         dataType: "json",
         data:  {action: "content"},
         success: function(data) {
-	        console.log(data);
+	        console.log(typeof data);
+	        data = JSON.parse(data);
+// 	        data = JSON.stringify(data);
 // 			data = read_from_local_file('leg.json');
 			legislators = data[0]["results"];	
 			billsOld = data[2]["results"];
@@ -154,7 +156,7 @@ myApp.controller("myController",function($scope, $filter) {
 
         }
     });
-    $scope.stateSelects = ['All States','Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+    $scope.stateSelects = ['All States','Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 	$scope.orderByState="state";
 	$scope.orderByLastName="lastName";
 	$scope.R="r.jpg";
@@ -210,23 +212,6 @@ myApp.controller("myController",function($scope, $filter) {
 
 
 	
-		
-	if(elementExists) {
-		var index = $('#Zendesk-carousel .carousel-inner #'+id).index();
-		$('#Zendesk-carousel').carousel(index);
-		$(ticketID).css('border-left','3px solid #78a300');
-		$('.Zendesk-controls').on('click', function() {
-			$(ticketID).css('border-left','none');
-		});
-		//find div with same id
-		$('p.expander').expander({
-			expandText: '[...]',
-			expandEffect: 'slideDown',
-			collapseEffect: 'slideUp',
-			userCollapseText: '[^]'
-		});
-
-	} //if(elementExists)	
 
 		if(obj.target.attributes[3] && obj.target.attributes[3].value.length) {
 			var targetId = obj.target.attributes[3].value;
@@ -238,23 +223,119 @@ myApp.controller("myController",function($scope, $filter) {
 
 		} else {
 			//  Append a slide to the carousel div
-			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>');
+// 			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>') 
+			var content= '<div class="item" data-id="1" id="'+targetId+'">' 
+			+ 	  	'<a href="#legislator-carousel"  data-slide-to="0">' 
+			+			'<button class="btn btn-default">'
+			+				'<span class="glyphicon glyphicon-chevron-left">' 
+			+				'</span>' 
+			+			'</button>' 
+			+		'</a>' 
+			+	'<table class="table">' 
+			+		'<tbody>' 
+			+			'<tr>' 		
+			+				' <td rowspan="2" class="details-left-column">' 		
+			+					'<table>' 		
+			+						'<tr>' 		
+			+							'<td rowspan="6">' 		
+			+								'<img class="details-image" src="https://theunitedstates.io/images/congress/original/'+targetId+'.jpg"/>' 		
+			+							'</td>' 		
+			+						'</tr>' 		
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 		
+			+						'<tr>' 		
+			+							'<td colspan="2">'		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 	
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 	
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+						'<tr>' 		
+			+							'<td colspan="2">' 		
+			+								'info' 		
+			+							'</td>' 		
+			+						'</tr>' 
+			+					'</table>' 
+			+				'</td>' 
+			+				'<td>' 
+			+					'right side' 
+			+				'</td>' 
+			+			'</tr>' 
+			+		'</tbody>' 
+			+	'</table>'
+			+	'</div>';
+			
+			
+			var a = $(content);
+
+				
+				
+				
+				
+				
+
+			
 			a.appendTo('.carousel-inner');
 			var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
-	
-		}
-		$.ajax({
+			$.ajax({
 			url: '../main.php',
 		    type: 'GET',
-
-			data: {action: "leg"},
+			data: {action: "leg", id: targetId},
 			success: function(data) {
 			   console.log(data);
 		 	},
-        error: function(xhr, status, error){
+		 	error: function(xhr, status, error){
 	        console.log(error);
         }
 		 });
+
+		}
 		$('#legislator-carousel').carousel(index);		
 		
 
