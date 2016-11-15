@@ -12,6 +12,8 @@ myApp.controller("myController",function($scope, $filter) {
         data:  {action: "content"},
         success: function(data) {
 	        data = JSON.parse(data);
+	        					console.log(data);
+
 // 	        data = JSON.stringify(data);
 // 			data = read_from_local_file('leg.json');
 			legislators = data[0]["results"];	
@@ -141,7 +143,6 @@ myApp.controller("myController",function($scope, $filter) {
 
 						"chamberImage":chamberImageForCommittees
 					});
-
 				}); 
 			});			  
 			  
@@ -225,7 +226,10 @@ myApp.controller("myController",function($scope, $filter) {
 				data: {action: "leg", id: targetId},
 				success: function(data) {
 					data = JSON.parse(data);
-					person = data.results[0];
+					console.log(data);
+					person = data[0].results[0];
+					personBills={};
+					personBills = data[1].results;
 					console.log(person);
 /*
 					$scope.$apply(function() {
@@ -253,11 +257,12 @@ myApp.controller("myController",function($scope, $filter) {
 		// 			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>') 
 					var content= '<div class="item" data-id="1" id="'+targetId+'">' 
 					+ 	  	'<a href="#legislator-carousel"  data-slide-to="0">' 
-					+			'<button class="btn btn-default">'
+					+			'<button class="btn btn-default" style="margin:10px">'
 					+				'<span class="glyphicon glyphicon-chevron-left">' 
 					+				'</span>' 
 					+			'</button>' 
 					+		'</a>' 
+					+		'<h2 class="h2">Details</h2>' 
 					+	'<table class="table details-table">' 
 					+		'<tbody>' 
 					+			'<tr>' 		

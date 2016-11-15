@@ -16,10 +16,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 /* get all legislators without pagination */
 $legislators = request("http://104.198.0.197:8080/legislators?per_page=all&fields=party,first_name,last_name,chamber,district,state,bioguide_id");
-$committees = request("http://104.198.0.197:8080/committees?per_page=all&fields=chamber,committee_id,name,parent_committee_id,phone");
+$committees = request("http://104.198.0.197:8080/committees?per_page=all&fields=chamber,committee_id,name,parent_committee_id,phone,office");
 //&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor
-$billsOld = request("http://104.198.0.197:8080/bills?per_page=50&history.active=true&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
-$billsNew = request("http://104.198.0.197:8080/bills?per_page=50&history.active=false&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
+$billsOld = request("http://104.198.0.197:8080/bills?per_page=50&history.active=true&order=introduced_on&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
+$billsNew = request("http://104.198.0.197:8080/bills?per_page=50&history.active=false&order=introduced_on&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
 $content = array($legislators,$committees,$billsOld,$billsNew);
 /*
 
@@ -34,8 +34,11 @@ if (isset($_REQUEST['action']) && !empty($_REQUEST['action'])) {
    } else if ($action=="leg") {
 	   $id = $_REQUEST['id'];
 	   $person = request("http://104.198.0.197:8080/legislators?bioguide_id=".$id);
-	   
-	   echo json_encode($person);
+	   $sponsoredBills = request("http://104.198.0.197:8080/bills?per_page=5&sponsor_id=".$id);
+	   $personInfo = array();
+	   $personInfo[] = $person;
+	   $personInfo[] = $sponsoredBills;
+	   echo json_encode($personInfo);
    }
 }
 
