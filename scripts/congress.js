@@ -230,6 +230,7 @@ myApp.controller("myController",function($scope, $filter) {
 					person = data[0].results[0];
 					personBills={};
 					personBills = data[1].results;
+					personComms = data[2].results;
 					console.log(person);
 /*
 					$scope.$apply(function() {
@@ -266,7 +267,7 @@ myApp.controller("myController",function($scope, $filter) {
 					+	'<table class="table details-table">' 
 					+		'<tbody>' 
 					+			'<tr>' 		
-					+				' <td rowspan="2" class="details-left-column">' 		
+					+				' <td class="details-left-column"><hr>' 		
 					+					'<table>' 		
 					+						'<tr>' 		
 					+							'<td rowspan="6" class="detail-left-column-image-td">' 		
@@ -350,9 +351,30 @@ myApp.controller("myController",function($scope, $filter) {
 					+						'</tr>' 
 					+					'</table>' 
 					+				'</td>' 
-					+				'<td>' 
-					+					'right side' 
-					+				'</td>' 
+					+				'<td style="padding-left: 30px;">' 
+					+					'<h4 style="padding-bottom: 10px;" class="h4">Committees</h4>'
+					+					'<table class="details-comm-table"><tr><th style="width:15%">Chamber</th><th style="width:15%">Committee ID</th><th>Name</th></tr>';
+					 					
+					 $(personComms).each( function(index, obj) {
+						 content+= '<tr><td><hr>'+obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1)+'</td>'
+						 		+		'<td><hr>'+obj.committee_id+'</td>'
+						 		+		'<td style="width: 70%"><hr>'+obj.name+'</td></tr>';
+					 });
+					content+=	'</table><h4 style="padding: 30px 0px 10px;" class="h4">Bills</h4><table class="details-bills-table"><tr><th style="width:15%">Bill ID</th><th>Title</th><th>Chamber</th><th>Bill Type</th><th>Congress</th><th>Link</th></tr>';
+
+					$(personBills).each( function(index, obj) {
+						if (!obj.urls.pdf) {
+							obj.urls.pdf = "#";
+						}
+						 content+= '<tr><td><hr>'+obj.bill_id+'</td>'
+						 		+		'<td style="width:20%"><hr>'+obj.official_title+'</td>'
+						 		+		'<td><hr>'+obj.chamber+'</td>'
+						 		+		'<td><hr>'+obj.bill_type+'</td>'
+						 		+		'<td><hr>'+obj.congress+'</td>'
+						 		+		'<td><hr><a href="'+obj.urls.pdf+'">Link</a></td></tr>';
+					 });
+					 
+					content+=		'</table></td>' 
 					+			'</tr>' 
 					+		'</tbody>' 
 					+	'</table>'
