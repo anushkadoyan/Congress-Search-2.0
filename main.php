@@ -35,9 +35,11 @@ if (isset($_REQUEST['action']) && !empty($_REQUEST['action'])) {
 	   $id = $_REQUEST['id'];
 	   $person = request("http://104.198.0.197:8080/legislators?bioguide_id=".$id);
 	   $sponsoredBills = request("http://104.198.0.197:8080/bills?per_page=5&sponsor_id=".$id);
+	   $inCommittees = request("http://104.198.0.197:8080/committees?per_page=5&member_ids=".$id);
 	   $personInfo = array();
 	   $personInfo[] = $person;
 	   $personInfo[] = $sponsoredBills;
+	   $personInfo[] = $inCommittees;
 	   echo json_encode($personInfo);
    }
 }
