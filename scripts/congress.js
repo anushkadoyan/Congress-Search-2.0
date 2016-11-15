@@ -216,122 +216,143 @@ myApp.controller("myController",function($scope, $filter) {
 		var elementExists = document.getElementById(targetId);
 		if(elementExists) {
 			var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
+					$('#legislator-carousel').carousel(index);		
+
 
 		} else {
-			//  Append a slide to the carousel div
-// 			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>') 
-			var content= '<div class="item" data-id="1" id="'+targetId+'">' 
-			+ 	  	'<a href="#legislator-carousel"  data-slide-to="0">' 
-			+			'<button class="btn btn-default">'
-			+				'<span class="glyphicon glyphicon-chevron-left">' 
-			+				'</span>' 
-			+			'</button>' 
-			+		'</a>' 
-			+	'<table class="table">' 
-			+		'<tbody>' 
-			+			'<tr>' 		
-			+				' <td rowspan="2" class="details-left-column">' 		
-			+					'<table>' 		
-			+						'<tr>' 		
-			+							'<td rowspan="6">' 		
-			+								'<img class="details-image" src="https://theunitedstates.io/images/congress/original/'+targetId+'.jpg"/>' 		
-			+							'</td>' 		
-			+						'</tr>' 		
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 		
-			+						'<tr>' 		
-			+							'<td colspan="2">'		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 	
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 	
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+						'<tr>' 		
-			+							'<td colspan="2">' 		
-			+								'info' 		
-			+							'</td>' 		
-			+						'</tr>' 
-			+					'</table>' 
-			+				'</td>' 
-			+				'<td>' 
-			+					'right side' 
-			+				'</td>' 
-			+			'</tr>' 
-			+		'</tbody>' 
-			+	'</table>'
-			+	'</div>';
-			
-			
-			var a = $(content);
-
-				
-				
-				
-				
-				
-
-			
-			a.appendTo('.carousel-inner');
-			var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
 			$.ajax({
-			url: '../main.php',
-		    type: 'GET',
-			data: {action: "leg", id: targetId},
-			success: function(data) {
-		 	},
-		 	error: function(xhr, status, error){
-	        console.log(error);
-        }
-		 });
+				url: '../main.php',
+			    type: 'GET',
+				data: {action: "leg", id: targetId},
+				success: function(data) {
+					data = JSON.parse(data);
+					person = data.results[0];
+					console.log(data);
+/*
+					$scope.$apply(function() {
+						$scope.person = {};
+						$scope.person.push({
+							"name": person.name,
+							"parent": person.parent_committee_id,
+							"id": person.committee_id,
+							"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
+							"contact": obj.phone,
+							"office": obj.office,
+	
+							"chamberImage":chamberImageForCommittees
+						});
+					});
+*/
+					if(person.party=="D") {
+						personPartyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
+						personPartyWord = "Democrat";
+					}else {
+						personPartyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
+						personPartyWord = "Republican";
+					}
+					//  Append a slide to the carousel div
+		// 			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>') 
+					var content= '<div class="item" data-id="1" id="'+targetId+'">' 
+					+ 	  	'<a href="#legislator-carousel"  data-slide-to="0">' 
+					+			'<button class="btn btn-default">'
+					+				'<span class="glyphicon glyphicon-chevron-left">' 
+					+				'</span>' 
+					+			'</button>' 
+					+		'</a>' 
+					+	'<table class="table details-table">' 
+					+		'<tbody>' 
+					+			'<tr>' 		
+					+				' <td rowspan="2" class="details-left-column">' 		
+					+					'<table>' 		
+					+						'<tr>' 		
+					+							'<td rowspan="6" class="detail-left-column-image-td">' 		
+					+								'<img class="details-image" src="https://theunitedstates.io/images/congress/original/'+targetId+'.jpg"/>' 		
+					+							'</td>' 		
+					+						'</tr>' 		
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								person.title + '. ' + person.last_name + ', ' + person.first_name	
+					+							'</td>' 		
+					+						'</tr>' 		
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>'		
+					+								'<a href="mailto:'+person.oc_email+'">'+person.oc_email+'</a>'	
+					+							'</td>' 		
+					+						'</tr>' 	
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'Chamber: ' + person.chamber.charAt(0).toUpperCase() + person.chamber.slice(1)
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'Contact: <a href="tel:'+person.phone+'">'+person.phone+'</a>'		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 	
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+						'<tr>' 		
+					+							'<td colspan="2"><hr>' 		
+					+								'info' 		
+					+							'</td>' 		
+					+						'</tr>' 
+					+					'</table>' 
+					+				'</td>' 
+					+				'<td>' 
+					+					'right side' 
+					+				'</td>' 
+					+			'</tr>' 
+					+		'</tbody>' 
+					+	'</table>'
+					+	'</div>';
+					
+					
+					var a = $(content);
+		
+					a.appendTo('.carousel-inner');
+					var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
+							$('#legislator-carousel').carousel(index);		
 
-		}
-		$('#legislator-carousel').carousel(index);		
+				},
+				error: function(xhr, status, error){
+		        	console.log(error);
+	    		}
+			});
+		} // end else
+		
 		
 
 
