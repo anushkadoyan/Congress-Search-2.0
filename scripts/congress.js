@@ -175,7 +175,6 @@ myApp.controller("myController",function($scope, $filter) {
 		$('.detailsButton').on("click", function(e) {
 			console.log('asdf');
 				e.preventDefault();
-				alert("ASDF");
 			});
 			});
 	$('#tabButton').click(function(e) {
@@ -311,27 +310,27 @@ myApp.controller("myController",function($scope, $filter) {
 					+						'</tr>' 
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
-					+								'<div class="details-under-image-titles"><b>End Term</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>' 		
+					+								'<div class="details-under-image-titles"><b>Office</b></div><div class="details-under-image-content">'+person.office+'</div>' 		
 					+							'</td>' 		
 					+						'</tr>' 	
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
-					+								'<div class="details-under-image-titles"><b>End Term</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>' 		
+					+								'<div class="details-under-image-titles"><b>State</b></div><div class="details-under-image-content">'+person.state_name+'</div>' 		
 					+							'</td>' 		
 					+						'</tr>' 
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
-					+								'<div class="details-under-image-titles"><b>End Term</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>'		
+					+								'<div class="details-under-image-titles"><b>Fax</b></div><div class="details-under-image-content"><a href="fax:'+person.fax+'">'+person.fax+'</div>'		
 					+							'</td>' 		
 					+						'</tr>' 
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
-					+								'<div class="details-under-image-titles"><b>End Term</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>'		
+					+								'<div class="details-under-image-titles"><b>Birthday</b></div><div class="details-under-image-content">'+moment(person.birthday).format("MMM D, YYYY")+'</div>'		
 					+							'</td>' 		
 					+						'</tr>' 
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
-					+								'<div class="details-under-image-titles"><b>End Term</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>'		
+					+								'<div class="details-under-image-titles"><b>Social Links</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>'		
 					+							'</td>' 		
 					+						'</tr>' 
 					+					'</table>' 
