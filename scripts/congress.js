@@ -330,8 +330,18 @@ myApp.controller("myController",function($scope, $filter) {
 					+						'</tr>' 
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
-					+								'<div class="details-under-image-titles"><b>Social Links</b></div><div class="details-under-image-content">'+moment(person.term_end).format("MMM D, YYYY")+'</div>'		
-					+							'</td>' 		
+					+								'<div class="details-under-image-titles"><b>Social Links</b></div><div class="details-under-image-content">';
+					if(person.twitter_id.length>0) {
+						content+='<a href="https://twitter.com/'+person.twitter_id+'" target="_blank"><img class="details-social-img" src="http://cs-server.usc.edu:45678/hw/hw8/images/t.png"/></a>';
+					}
+					if(person.facebook_id.length>0) {
+						content+='<a href="https://facebook.com/'+person.facebook_id+'" target="_blank"><img class="details-social-img" src="http://cs-server.usc.edu:45678/hw/hw8/images/f.png"/></a>';
+					}
+					if(person.website.length>0) {
+						content+='<a href="'+person.website+'" target="_blank"><img class="details-social-img" src="http://cs-server.usc.edu:45678/hw/hw8/images/w.png"/></a></div>';
+					}
+					
+					content+=					'</td>' 		
 					+						'</tr>' 
 					+					'</table>' 
 					+				'</td>' 
