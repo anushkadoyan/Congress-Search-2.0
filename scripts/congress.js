@@ -337,13 +337,13 @@ myApp.controller("myController",function($scope, $filter) {
 					+						'<tr>' 		
 					+							'<td colspan="2"><hr>' 		
 					+								'<div class="details-under-image-titles"><b>Social Links</b></div><div class="details-under-image-content">';
-					if(person.twitter_id.length>0) {
+					if(person.twitter_id) {
 						content+='<a href="https://twitter.com/'+person.twitter_id+'" target="_blank"><img class="details-social-img" src="http://cs-server.usc.edu:45678/hw/hw8/images/t.png"/></a>';
 					}
-					if(person.facebook_id.length>0) {
+					if(person.facebook_id) {
 						content+='<a href="https://facebook.com/'+person.facebook_id+'" target="_blank"><img class="details-social-img" src="http://cs-server.usc.edu:45678/hw/hw8/images/f.png"/></a>';
 					}
-					if(person.website.length>0) {
+					if(person.website) {
 						content+='<a href="'+person.website+'" target="_blank"><img class="details-social-img" src="http://cs-server.usc.edu:45678/hw/hw8/images/w.png"/></a></div>';
 					}
 					
@@ -351,7 +351,7 @@ myApp.controller("myController",function($scope, $filter) {
 					+						'</tr>' 
 					+					'</table>' 
 					+				'</td>' 
-					+				'<td style="padding-left: 30px;">' 
+					+				'<td class="details-right-column" style="padding-left: 30px;">' 
 					+					'<h4 style="padding-bottom: 10px;" class="h4">Committees</h4>'
 					+					'<table class="details-comm-table"><tr><th style="width:15%">Chamber</th><th style="width:15%">Committee ID</th><th>Name</th></tr>';
 					 					
