@@ -10,6 +10,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="scripts/congress.js"></script>
 		<script src="scripts/dirPagination.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js"></script>
 	
 	</head>
 	<body style="height: 100%;" ng-controller="myController">
@@ -231,6 +232,9 @@
   
 </html>
 <style>
+	.progress {
+		margin-bottom: 0px;
+	}
 	.details-table hr {
 		margin: 10px 0px;
 	}
@@ -241,7 +245,20 @@
 		width: 100%;
 	}
 */
+	.details-under-image-titles{
+		display: inline-block;
+		width: 30%
+	}
 	
+	.details-under-image-content {
+		display: inline-block;
+		width: 70%;
+		vertical-align: top;
+
+	}
+	.details-table b {
+		margin-right: 20%;
+	}
 	.details-table a {
 		color: #337ab7 !important;
 	}
@@ -251,6 +268,7 @@
 	
 	.details-party-image {
 		width: 20px;
+		margin-right: 10px;
 	}
 	.details-left-column {
 		width: 50%;
