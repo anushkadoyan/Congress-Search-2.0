@@ -23,8 +23,11 @@ myApp.controller("myController",function($scope, $filter) {
 			$scope.people =[];	
 			$scope.billsNew =[];	
 			$scope.billsOld =[];	
-			$scope.committees =[];	
-			$scope.favorites = [];
+			$scope.committees =[];
+			
+				$scope.favBills =[];
+			$scope.favComms = [];
+			$scope.favLegs = [];
 			//get legislators
 			$(legislators).each( function(index, obj){
 				if(obj.district==null) {
@@ -355,17 +358,17 @@ myApp.controller("myController",function($scope, $filter) {
 					+							'</td>' 		
 					+						'</tr>' 
 					+						'<tr>' 		
-					+							'<td colspan="2"><hr> ' 		
+					+							'<td colspan="2" class="hidden-xs"><hr> ' 		
 					+								'<div class="details-under-image-titles"><b>Term</b></div><div class="details-under-image-content"><div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="'+Math.floor((moment().unix()-moment(person.term_start).unix())/(moment(person.term_end).unix()-moment(person.term_start).unix())*100)+'" aria-valuemin="0" aria-valuemax="100" style="width:'+Math.floor((moment().unix()-moment(person.term_start).unix())/(moment(person.term_end).unix()-moment(person.term_start).unix())*100)+'%">'+Math.floor((moment().unix()-moment(person.term_start).unix())/(moment(person.term_end).unix()-moment(person.term_start).unix())*100)+'%</div><div class="col-sm-4"><uib-progressbar value="55"></uib-progressbar></div></div></div>'		
 					+							'</td>' 		
 					+						'</tr>' 
 					+						'<tr>' 		
-					+							'<td colspan="2"><hr>' 		
+					+							'<td colspan="2" class="hidden-xs"><hr>' 		
 					+								'<div class="details-under-image-titles"><b>Office</b></div><div class="details-under-image-content">'+person.office+'</div>' 		
 					+							'</td>' 		
 					+						'</tr>' 	
 					+						'<tr>' 		
-					+							'<td colspan="2"><hr>' 		
+					+							'<td colspan="2" class="hidden-xs"><hr>' 		
 					+								'<div class="details-under-image-titles"><b>State</b></div><div class="details-under-image-content">'+person.state_name+'</div>' 		
 					+							'</td>' 		
 					+						'</tr>' 
@@ -398,24 +401,24 @@ myApp.controller("myController",function($scope, $filter) {
 					+				'</td>' 
 					+				'<td class="details-right-column" style="padding-left: 30px;">' 
 					+					'<h4 style="padding-bottom: 10px;" class="h4">Committees</h4>'
-					+					'<table class="details-comm-table"><tr><th style="width:15%">Chamber</th><th style="width:15%">Committee ID</th><th>Name</th></tr>';
+					+					'<table class="details-comm-table"><tr><th style="width:15%">Chamber</th><th style="width:15%">Committee ID</th><th class="hidden-xs">Name</th></tr>';
 					 					
 					 $(personComms).each( function(index, obj) {
 						 content+= '<tr><td><hr>'+obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1)+'</td>'
 						 		+		'<td><hr>'+obj.committee_id+'</td>'
-						 		+		'<td style="width: 70%"><hr>'+obj.name+'</td></tr>';
+						 		+		'<td  class="hidden-xs" style="width: 70%"><hr>'+obj.name+'</td></tr>';
 					 });
-					content+=	'</table><h4 style="padding: 30px 0px 10px;" class="h4">Bills</h4><table class="details-bills-table"><tr><th style="width:15%">Bill ID</th><th>Title</th><th>Chamber</th><th>Bill Type</th><th>Congress</th><th>Link</th></tr>';
+					content+=	'</table><h4 style="padding: 30px 0px 10px;" class="h4">Bills</h4><table class="details-bills-table"><tr><th style="width:15%">Bill ID</th><th class="hidden-xs">Title</th><th class="hidden-xs">Chamber</th><th class="hidden-xs">Bill Type</th><th class="hidden-xs">Congress</th><th>Link</th></tr>';
 
 					$(personBills).each( function(index, obj) {
 						if (!obj.urls.pdf) {
 							obj.urls.pdf = "#";
 						}
 						 content+= '<tr><td><hr>'+obj.bill_id+'</td>'
-						 		+		'<td style="width:20%"><hr>'+obj.official_title+'</td>'
-						 		+		'<td><hr>'+obj.chamber+'</td>'
-						 		+		'<td><hr>'+obj.bill_type+'</td>'
-						 		+		'<td><hr>'+obj.congress+'</td>'
+						 		+		'<td  class="hidden-xs" style="width:20%"><hr>'+obj.official_title+'</td>'
+						 		+		'<td  class="hidden-xs" ><hr>'+obj.chamber+'</td>'
+						 		+		'<td  class="hidden-xs" ><hr>'+obj.bill_type+'</td>'
+						 		+		'<td class="hidden-xs"> <hr>'+obj.congress+'</td>'
 						 		+		'<td><hr><a href="'+obj.urls.pdf+'">Link</a></td></tr>';
 					 });
 					 
@@ -442,14 +445,79 @@ myApp.controller("myController",function($scope, $filter) {
 		} // end else
 		
 		
-$scope.favButtonClicked = function () {
-		console.log("asdfs");
-	}
 
 
   	};
+  	function containsObject(obj, list) {
+	  	
+	  	if(!list) {
+		  	return;
+	  	}
+	    var i;
+	    for (i = 0; i < list.length; i++) {
+	        if (list[i] === obj) {
+	            return true;
+	        }
+	    }
+	
+	    return false;
+	}
+	$scope.favBillClicked = function(e) {
+		var index = $scope.favBills.indexOf(e,$scope.favBills);
+		console.log(index);
+		$scope.favBills.splice(index, 1);
+		console.log($scope.favBills);
+	}
+	$scope.favCommClicked = function(obj) {
+		console.log(obj);
+		var index = $scope.favComms.indexOf(obj,$scope.favComms);
+		console.log(index);
+		$scope.favComms.splice(index, 1);
+		console.log($scope.favComms);
+	}
   	$scope.favButtonClicked = function () {
-		console.log("asdfs");
+				//committee
+		if($(this)[0].b) {
+			console.log($(this)[0].b);
+			if(!containsObject($(this)[0].b,$scope.favComms)) {
+				$scope.favComms.push($(this)[0].b);
+				localStorage.setItem('favComms', JSON.stringify($scope.favComms));
+
+				console.log($scope.favComms);			
+			}
+			//delete it
+			else {
+				
+				var index = $scope.favComms.indexOf($(this)[0].b,$scope.favComms);
+				console.log(index);
+				$scope.favComms.splice(index, 1);
+				localStorage.setItem('favComms', JSON.stringify($scope.favComms));
+				console.log($scope.favComms);
+			}
+			
+		}
+		//bill
+		if($(this)[0].billDetail) {
+			if(!containsObject($(this)[0].billDetail,$scope.favBills)) {
+				$scope.favBills.push($(this)[0].billDetail);
+				localStorage.setItem('favBills', JSON.stringify($scope.favBills));
+				console.log($scope.favBills);		
+						
+			}
+			else {
+				
+				var index = $scope.favBills.indexOf($(this)[0].b,$scope.favBills);
+				console.log(index);
+				$scope.favBills.splice(index, 1);
+				console.log($scope.favBills);
+								localStorage.setItem('favBills', JSON.stringify($scope.favBills));
+
+			}
+
+			
+		}
+		
+
 	}
   	//ignore All States option in dropdown
 	$scope.ignoreNullComparator = function(actual, expected){

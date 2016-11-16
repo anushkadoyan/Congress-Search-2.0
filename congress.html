@@ -1,6 +1,7 @@
 <!doctype html>
 <html ng-app="myModule" style="    height: 100%;">
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<head>
 	  <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -171,7 +172,10 @@
 									<button class="btn btn-default" style="margin: 10px;">
 										<span class="glyphicon glyphicon-chevron-left"></span>
 									</button>
-								</a><h2 class="h2">Details</h2><hr style="margin:0px !important;">
+								</a><h2 class="h2">Details</h2>
+								<button onclick="favClicked(this)" ng-click="favButtonClicked()" class="favButton btn btn-default" style="margin:10px; float:right">
+									<i class="fa fa-star-o" aria-hidden="true"></i>
+								</button> <hr style="margin:0px !important;">
 								<table style="width:100%">
 									<tbody>
 										<tr>
@@ -285,7 +289,7 @@
 												</table>
 											</td>
 											<td>
-												<object style="width: 100%;    height: 100%;" data="{{billDetail.version.urls.pdf}}"></object>
+												<object class="hidden-xs" style="width: 100%;    height: 100%;" data="{{billDetail.version.urls.pdf}}"></object>
 											</td>
 										</tr>
 									</tbody>
@@ -315,6 +319,7 @@
 									<div id="comm-table-container" class="table-container">
 									    <table class="table">
 											<tr>
+												<th></th>
 												<th>Chamber</th>
 												<th>Committee ID</th>
 												<th>Name</th>
@@ -325,6 +330,11 @@
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
 											<tr class="comm-table-content" dir-paginate="b in committees | filter:search | filter:customFilter |  itemsPerPage:10 " pagination-id="comm-pagination">
+												<td>
+													<button onclick="favClicked(this)" ng-click="favButtonClicked()" class="favButton btn btn-default" style="margin:10px; float:right">
+													<i class="fa fa-star-o" aria-hidden="true"></i>
+												</button> <hr style="margin:0px !important;">
+												</td>
 												<td style="width: 10%;"><img style="margin: 0px 10px; width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
 												<td>{{b.id}}</td>
 												<td>{{b.name}}</td>
@@ -378,7 +388,7 @@
 														</tr>
 														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 										 -->
-														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
+														<tr class="bills-table-content" ng-repeat="b in favLegs ">
 															<td class="uppercase">{{b.id}}</td>
 															<td class="uppercase">{{b.type}}</td>
 															<td style="    width: 300px !important;">{{b.title}}</td>
@@ -392,7 +402,6 @@
 														</tr>
 												    </table>
 												</div>
-												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
 										</div>
 										<div role="tabpanel" class="tab-pane" id="fav-bills-table">
 												<figure class="highlight">
@@ -402,6 +411,7 @@
 												<div id="bills-table-container" class="table-container">
 												    <table class="table">
 														<tr>
+															<th></th>
 															<th>Bill ID</th>
 															<th>Bill Type</th>
 															<th>Title</th>
@@ -411,7 +421,12 @@
 														</tr>
 														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 										 -->
-														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
+														<tr class="bills-table-content" ng-repeat="b in favBills">
+															<td>
+															<button  ng-click="favBillClicked(b)" class="btn btn-default" style="margin:10px;">
+																<i class="fa fa-trash" aria-hidden="true"></i>
+															</button> 
+															</td>
 															<td class="uppercase">{{b.id}}</td>
 															<td class="uppercase">{{b.type}}</td>
 															<td style="    width: 300px !important;">{{b.title}}</td>
@@ -420,21 +435,20 @@
 															<td>{{b.introduced}}</td>
 															<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
 															<td style="text-align:center; width: 200px !important;">
-																<button   data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
+																<button ng-click="favCommClicked(b)"  data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
 															</td>
 														</tr>
 												    </table>
 												</div>
-												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
 										</div>
 										<div role="tabpanel" class="tab-pane" id="fav-comms-table">
 												<figure class="highlight">
 													<span id="highlight-fav-legs-title">Favorite Committees</span>
-													<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
 												</figure>
 												<div id="bills-table-container" class="table-container">
 												    <table class="table">
 														<tr>
+															<th></th>
 															<th>Chamber</th>
 															<th>Committee ID</th>
 															<th>Name</th>
@@ -443,21 +457,20 @@
 														</tr>
 														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 										 -->
-														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
-															<td class="uppercase">{{b.id}}</td>
-															<td class="uppercase">{{b.type}}</td>
-															<td style="    width: 300px !important;">{{b.title}}</td>
-															<td><img style="width: 30px;
-										    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
-															<td>{{b.introduced}}</td>
-															<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
-															<td style="text-align:center; width: 200px !important;">
-																<button   data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
-															</td>
+										 	
+														<tr class="bills-table-content" ng-repeat="b in favComms ">
+															<td>
+															<button ng-click="favCommClicked(b)" class="btn btn-default" style="margin:10px;">
+																<i class="fa fa-trash" aria-hidden="true"></i>
+															</button> 															</td>
+															<td style="width: 10%;"><img style="margin: 0px 10px; width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+															<td>{{b.id}}</td>
+															<td>{{b.name}}</td>
+															<td>{{b.parent}}</td>
+															<td>{{b.contact}}</td> 
 														</tr>
 												    </table>
 												</div>
-												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
 										</div>
 									</div>
 
@@ -478,6 +491,20 @@
   
 </html>
 <style>
+	@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) 
+and (orientation : portrait) { 
+	#left-side span {
+		display:none;
+		
+	}
+	.details-left-column,
+	.details-right-column,
+	.detail-left-column-image-td{
+		display:block;
+	}
+	 }
 	.bills-details-table hr {
 		    border: none;
     height: 1px;
