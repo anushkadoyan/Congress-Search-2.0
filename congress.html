@@ -118,45 +118,178 @@
 				<div style="display: none" id="bill-content" data-current="true">
 					<h1 style="font-weight: 400; margin-top: 0px;" id="bill-title">Bills</h1>
 					<hr>
-					<div class="tabsAndTable">
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" id="billsTabs" role="tablist">
-							<li role="presentation" class="active" ><a href="#bills-table" aria-controls="active" data-order="orderByLastName" id="active" role="tab" data-toggle="tab">Active Bills</a></li>
-							<li role="presentation"><a href="#bills-table" aria-controls="new"  data-order="orderByLastName" id="new" role="tab" data-toggle="tab">New Bills</a></li>
-						</ul>
-				
-							<!-- Tab panes -->
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane active" id="bills-table">
-									<figure class="highlight">
-										<span id="highlight-bills-title">Active Bills</span>
-										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
-									</figure>
-									<div id="bills-table-container" class="table-container">
-									    <table class="table">
-											<tr>
-												<th>Bill ID</th>
-												<th>Bill Type</th>
-												<th>Title</th>
-												<th>Chamber</th>
-												<th>Introduced On</th>
-												<th>Sponsor</th>
-											</tr>
-											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-							 -->
-											<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
-												<td class="uppercase">{{b.id}}</td>
-												<td class="uppercase">{{b.type}}</td>
-												<td style="    width: 300px !important;">{{b.title}}</td>
-												<td><img style="width: 30px;
-							    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
-												<td>{{b.introduced}}</td>
-												<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
-												<td style="text-align:center; width: 200px !important;"><button class="btn btn-defualt btn-primary">View Details</button></td>
-											</tr>
-									    </table>
+					<div id="bills-carousel" class="carousel slide" data-ride="carousel" data-interval="">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active" data-id="0">
+								<div class="tabsAndTable">
+									<!-- Nav tabs -->
+									<ul class="nav nav-tabs" id="billsTabs" role="tablist">
+										<li role="presentation" class="active" ><a href="#bills-table" aria-controls="active" data-order="orderByLastName" id="active" role="tab" data-toggle="tab">Active Bills</a></li>
+										<li role="presentation"><a href="#bills-table" aria-controls="new"  data-order="orderByLastName" id="new" role="tab" data-toggle="tab">New Bills</a></li>
+									</ul>
+							
+										<!-- Tab panes -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="bills-table">
+												<figure class="highlight">
+													<span id="highlight-bills-title">Active Bills</span>
+													<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
+												</figure>
+												<div id="bills-table-container" class="table-container">
+												    <table class="table">
+														<tr>
+															<th>Bill ID</th>
+															<th>Bill Type</th>
+															<th>Title</th>
+															<th>Chamber</th>
+															<th>Introduced On</th>
+															<th>Sponsor</th>
+														</tr>
+														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+										 -->
+														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
+															<td class="uppercase">{{b.id}}</td>
+															<td class="uppercase">{{b.type}}</td>
+															<td style="    width: 300px !important;">{{b.title}}</td>
+															<td><img style="width: 30px;
+										    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+															<td>{{b.introduced}}</td>
+															<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
+															<td style="text-align:center; width: 200px !important;">
+																<button   data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
+															</td>
+														</tr>
+												    </table>
+												</div>
+												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+										</div>
 									</div>
-									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+								</div>
+							</div>
+							<div class="item" data-id="1">
+								<a href="#bills-carousel"  data-slide-to="0">
+									<button class="btn btn-default" style="margin: 10px;">
+										<span class="glyphicon glyphicon-chevron-left"></span>
+									</button>
+								</a><h2 class="h2">Details</h2><hr style="margin:0px !important;">
+								<table style="width:100%">
+									<tbody>
+										<tr>
+											<td style="width:50%; padding: 0px 20px 20px;">
+												<table class="bills-details-table" style="width:100%;">
+													<tbody>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																	<b>Bill ID</b>
+																</div>
+															</td>
+															<td>
+																<hr><div style="text-transform: uppercase;" class="bills-details-detail">
+																{{billDetail.id}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title" style="padding-top: 0px;vertical-align: top;">
+																<hr><div>
+																	<b>Title</b>
+																</div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail" >
+																{{billDetail.title}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																	<b>Bill Type</b>
+																</div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.type}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																<b>Sponsor</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.sponsor.title}}. {{billDetail.sponsor.last_name}}, {{billDetail.sponsor.first_name}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																<b>Chamber</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.chamber}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																<b>Status</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.active}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																<b>Introduced On</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.introduced}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																<b>Congress URL</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.congressURL}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title">
+																<hr><div>
+																<b>Version Status</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.version.version_name}}</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="bills-details-title" style="vertical-align: top;padding-top: 0px;">
+																<hr><div>
+																<b>Bill URL</b></div>
+															</td>
+															<td>
+																<hr><div class="bills-details-detail">
+																{{billDetail.version.urls.pdf}}</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+											<td>
+												<iframe src="{{billDetail.version.urls.pdf}}"></iframe>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -218,6 +351,13 @@
   
 </html>
 <style>
+	.bills-details-table hr {
+		    border: none;
+    height: 1px;
+    /* color: #333; */
+    margin: 2px 0px;
+    background-color: #ddd;
+	}
 	.progress {
 		margin-bottom: 0px;
 	}
@@ -231,11 +371,16 @@
 		width: 100%;
 	}
 */
+	.bills-details-title {
+		
+	    width: 20%;
+	    padding: 10px 0px;
+	}
 	.details-social-img {
 		width: 30px;
 		margin-right: 5%;
 	}
-	.details-under-image-titles{
+	.details-under-image-titles {
 		display: inline-block;
 		width: 30%
 	}

@@ -81,7 +81,10 @@ myApp.controller("myController",function($scope, $filter) {
 						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
 						"introduced": obj.introduced_on,
 						"sponsor": obj.sponsor,
-						"chamberImage":chamberImageForBills
+						"chamberImage":chamberImageForBills,
+						"version":obj.last_version,
+						"active":obj.history.active,
+						"congressURL":obj.urls.congress
 					});
 				
 				}); 
@@ -109,7 +112,10 @@ myApp.controller("myController",function($scope, $filter) {
 						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
 						"introduced": obj.introduced_on,
 						"sponsor": obj.sponsor,
-						"chamberImage":chamberImageForBills
+						"chamberImage":chamberImageForBills,
+						"version":obj.last_version,
+						"active":obj.history.active,
+						"congressURL":obj.urls.congress
 					});
 				
 				}); 
@@ -202,13 +208,22 @@ myApp.controller("myController",function($scope, $filter) {
    });
 */
 
-	//view detail button clicked
+	//bills view detail button clicked
+	$scope.billsButtonClicked = function(obj) {
+		$scope.billDetail = {};
+		$scope.billDetail = obj;
+		if($scope.billDetail.active==true) {
+			$scope.billDetail.active = "Active";
+		}
+		else {
+			$scope.billDetail.active = "New";
+		}
+		console.log($scope.billDetail);
+		
+	}
+	
+	//legislators view detail button clicked
 	$scope.buttonClicked = function(obj){
-	
-
-
-	
-
 		if(obj.target.attributes[3] && obj.target.attributes[3].value.length) {
 			var targetId = obj.target.attributes[3].value;
 		}

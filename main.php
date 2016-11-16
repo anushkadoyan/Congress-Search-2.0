@@ -18,8 +18,8 @@ error_reporting(E_ALL);
 $legislators = request("http://104.198.0.197:8080/legislators?per_page=all&fields=party,first_name,last_name,chamber,district,state,bioguide_id");
 $committees = request("http://104.198.0.197:8080/committees?order=committee_id__asc&per_page=all&fields=chamber,committee_id,name,parent_committee_id,phone,office");
 //&fields=bill_id,bill_type,chamber,introduced_on,official_title,sponsor
-$billsOld = request("http://104.198.0.197:8080/bills?per_page=50&history.active=true&order=introduced_on&last_version.urls.pdf__exists=true&fields=last_version,history.active,bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
-$billsNew = request("http://104.198.0.197:8080/bills?per_page=50&history.active=false&order=introduced_on&last_version.urls.pdf__exists=true&fields=last_version,history.active,bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
+$billsOld = request("http://104.198.0.197:8080/bills?per_page=50&history.active=true&order=introduced_on&last_version.urls.pdf__exists=true&fields=urls,last_version,history.active,bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
+$billsNew = request("http://104.198.0.197:8080/bills?per_page=50&history.active=false&order=introduced_on&last_version.urls.pdf__exists=true&fields=urls,last_version,history.active,bill_id,bill_type,chamber,introduced_on,official_title,sponsor");
 $content = array($legislators,$committees,$billsOld,$billsNew);
 /*
 
