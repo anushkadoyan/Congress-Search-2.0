@@ -44,7 +44,7 @@
 					</a>
 				</div>
 				<div>
-					<a>
+					<a data-target="fav-content">
 						<i style="color: #CBCECE;"  class="fa fa-star" aria-hidden="true"></i>
 						<span class="left-buttons">Favorites</span>
 					</a>
@@ -52,7 +52,7 @@
 			</td>
 			<td id="right-side">
 				<div id="leg-content" data-current="true">
-					<h1  class="h1" style="margin-top: 0px;" id="title">Legislators</h1>
+					<h1  class="h1" style="margin-top: 0px; font-weight: 400;" id="title">Legislators</h1>
 					<hr>
 					
 					<div id="legislator-carousel" class="carousel slide" data-ride="carousel" data-interval="">
@@ -335,6 +335,128 @@
 									    </table>
 									</div>
 									<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="comm-pagination"></dir-pagination-controls>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="display: none" id="fav-content" data-current="true">
+					<h1 style="font-weight: 400; margin-top: 0px;" id="fav-title">Favorites</h1>
+					<hr>
+					<div id="fav-carousel" class="carousel slide" data-ride="carousel" data-interval="">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active" data-id="0">
+								<div class="tabsAndTable">
+									<!-- Nav tabs -->
+									<ul class="nav nav-tabs" id="favTabs" role="tablist">
+										<li role="presentation" class="active" ><a href="#fav-legs-table" aria-controls="fav-legs-table" data-order="orderByLastName" id="active" role="tab" data-toggle="tab">Legislators</a></li>
+										<li role="presentation"><a href="#fav-bills-table" aria-controls="fav-bills-table"  data-order="orderByLastName" id="new" role="tab" data-toggle="tab">Bills</a></li>
+										<li role="presentation"><a href="#fav-comms-table" aria-controls="fav-comms-table"  data-order="orderByLastName" id="new" role="tab" data-toggle="tab">Committees</a></li>
+									</ul>
+							
+										<!-- Tab panes -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="fav-legs-table">
+												<figure class="highlight">
+													<span id="highlight-fav-legs-title">Favorite Legislators</span>
+													<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
+												</figure>
+												<div id="bills-table-container" class="table-container">
+												    <table class="table">
+														<tr>
+															<th>Bill ID</th>
+															<th>Bill Type</th>
+															<th>Title</th>
+															<th>Chamber</th>
+															<th>Introduced On</th>
+															<th>Sponsor</th>
+														</tr>
+														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+										 -->
+														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
+															<td class="uppercase">{{b.id}}</td>
+															<td class="uppercase">{{b.type}}</td>
+															<td style="    width: 300px !important;">{{b.title}}</td>
+															<td><img style="width: 30px;
+										    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+															<td>{{b.introduced}}</td>
+															<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
+															<td style="text-align:center; width: 200px !important;">
+																<button   data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
+															</td>
+														</tr>
+												    </table>
+												</div>
+												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="fav-bills-table">
+												<figure class="highlight">
+													<span id="highlight-fav-legs-title">Favorite Bills</span>
+													<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
+												</figure>
+												<div id="bills-table-container" class="table-container">
+												    <table class="table">
+														<tr>
+															<th>Bill ID</th>
+															<th>Bill Type</th>
+															<th>Title</th>
+															<th>Chamber</th>
+															<th>Introduced On</th>
+															<th>Sponsor</th>
+														</tr>
+														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+										 -->
+														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
+															<td class="uppercase">{{b.id}}</td>
+															<td class="uppercase">{{b.type}}</td>
+															<td style="    width: 300px !important;">{{b.title}}</td>
+															<td><img style="width: 30px;
+										    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+															<td>{{b.introduced}}</td>
+															<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
+															<td style="text-align:center; width: 200px !important;">
+																<button   data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
+															</td>
+														</tr>
+												    </table>
+												</div>
+												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="fav-comms-table">
+												<figure class="highlight">
+													<span id="highlight-fav-legs-title">Favorite Committees</span>
+													<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
+												</figure>
+												<div id="bills-table-container" class="table-container">
+												    <table class="table">
+														<tr>
+															<th>Bill ID</th>
+															<th>Bill Type</th>
+															<th>Title</th>
+															<th>Chamber</th>
+															<th>Introduced On</th>
+															<th>Sponsor</th>
+														</tr>
+														<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
+										 -->
+														<tr class="bills-table-content" dir-paginate="b in bills() | orderBy: -customOrder |  filter: search | itemsPerPage:10 " pagination-id="bills-pagination">
+															<td class="uppercase">{{b.id}}</td>
+															<td class="uppercase">{{b.type}}</td>
+															<td style="    width: 300px !important;">{{b.title}}</td>
+															<td><img style="width: 30px;
+										    height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+															<td>{{b.introduced}}</td>
+															<td>{{b.sponsor.title}}. {{b.sponsor.last_name}}, {{b.sponsor.first_name}}</td>
+															<td style="text-align:center; width: 200px !important;">
+																<button   data-slide-to="1" ng-click="billsButtonClicked(b)" class="btn btn-defualt btn-primary billsDetailsButton" data-target="#bills-carousel" data-targetslide="{{b.id}}">View Details</button>
+															</td>
+														</tr>
+												    </table>
+												</div>
+												<dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="bills-pagination"></dir-pagination-controls>
+										</div>
+									</div>
+
+								</div>
 							</div>
 						</div>
 					</div>
