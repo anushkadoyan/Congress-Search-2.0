@@ -167,9 +167,9 @@
 					<div class="tabsAndTable">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="commTabs" role="tablist">
-							<li role="presentation"  class="active" ><a href="#bills-table" aria-controls="comm-house" data-order="orderByLastName" id="comm-house" role="tab" data-toggle="tab">House</a></li>
-							<li role="presentation"><a href="#bills-table" aria-controls="comm-senate"  data-order="orderByLastName" id="comm-senate" role="tab" data-toggle="tab">Senate</a></li>
-							<li role="presentation"><a href="#bills-table" aria-controls="comm-joint"  data-order="orderByLastName" id="comm-joint" role="tab" data-toggle="tab">Joint</a></li>
+							<li role="presentation"  class="active" ><a href="#bills-table" aria-controls="comm-house" data-order="orderByLastName" data-filter="house" role="tab" data-toggle="tab">House</a></li>
+							<li role="presentation"><a href="#bills-table" aria-controls="comm-senate"  data-order="orderByLastName" data-filter="senate" role="tab" data-toggle="tab">Senate</a></li>
+							<li role="presentation"><a href="#bills-table" aria-controls="comm-joint"  data-order="orderByLastName" data-filter="joint" role="tab" data-toggle="tab">Joint</a></li>
 						</ul>
 				
 							<!-- Tab panes -->
@@ -177,7 +177,7 @@
 							<div role="tabpanel" class="tab-pane active" id="comm-table">
 									<figure class="highlight">
 										<span id="highlight-comm-title">House</span>
-										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="customFilter">
+										<input style="width: 200px; float: right;" type="text" class="form-control" placeholder="Search" ng-model="search">
 									</figure>
 									<div id="comm-table-container" class="table-container">
 									    <table class="table">
@@ -185,19 +185,19 @@
 												<th>Chamber</th>
 												<th>Committee ID</th>
 												<th>Name</th>
-												<th>Parent Committee</th>
-												<th>Contact</th>
-												<th>Office</th>
+												<th  ng-if="customFilter != 'joint'" class="hideMe">Parent Committee</th>
+												<th  ng-if="customFilter=='house'" class="hideMe">Contact</th>
+												<th  ng-if="customFilter=='house'" class="hideMe">Office</th>
 											</tr>
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
-											<tr class="comm-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="comm-pagination">
+											<tr class="comm-table-content" dir-paginate="b in committees | filter:search | filter:customFilter |  itemsPerPage:10 " pagination-id="comm-pagination">
 												<td style="width: 10%;"><img style="margin: 0px 10px; width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
 												<td>{{b.id}}</td>
 												<td>{{b.name}}</td>
-												<td>{{b.parent}}</td>
-												<td>{{b.contact}}</td> 
-												<td>{{b.office}}</td>
+												<td ng-if="customFilter != 'joint'" class="hideMe">{{b.parent}}</td>
+												<td ng-if="customFilter=='house'" class="hideMe">{{b.contact}}</td> 
+												<td ng-if="customFilter=='house'" class="hideMe">{{b.office}}</td>
 											</tr>
 									    </table>
 									</div>

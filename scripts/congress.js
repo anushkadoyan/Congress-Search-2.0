@@ -127,10 +127,10 @@ myApp.controller("myController",function($scope, $filter) {
 				if(obj.name==null) {
 					obj.name="N.A";
 				}
-				var chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
+				var chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
 				
-				if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "Senate") {
-					chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/s.svg";
+				if(obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1) == "House") {
+					chamberImageForCommittees = "http://cs-server.usc.edu:45678/hw/hw8/images/h.png";
 				}
 				$scope.$apply(function() {
 					$scope.committees.push({
@@ -485,35 +485,25 @@ myApp.controller("myController",function($scope, $filter) {
 // 		$(this).tab('show')
 // 		console.log($scope.customOrder);
 	});	
-	$('#billsTabs a').click(function (e) {
-		$scope.currentBill = filterBy;
+	$('#commTabs a').click(function (e) {
+		
 		e.preventDefault();
 		$scope.search="";
 		
 		$('.highlight input').css('display','block');
-		var filterBy = $(this).attr('id');
+		var filterBy = $(this).attr('data-filter');
 		
 		
-		if (filterBy== "active") {
-			$('#highlight-bills-title')[0].innerHTML = "Active Bills";
-			orderBy='introduced';
-		
-			
+		if (filterBy== "house") {
+			$('#highlight-comm-title')[0].innerHTML = "House";
 		}
-		else if (filterBy=="new") {
-			$('#highlight-bills-title')[0].innerHTML = "New Bills";
-			orderBy='introduced';
-			
-			
-		}
-		$scope.bills = function() {
-			if (filterBy== "active") {
-				return $scope.billsOld;
-			} else {
-				return $scope.billsNew;
-			}
+		else if (filterBy=="senate") {
+			$('#highlight-comm-title')[0].innerHTML = "Senate";
 
-		};
+		} else {
+			$('#highlight-comm-title')[0].innerHTML = "Joint";
+		}
+
 		$scope.$apply(function() {
 			$scope.customFilter = filterBy;
 			$scope.customOrder = orderBy;
