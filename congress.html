@@ -285,7 +285,7 @@
 												</table>
 											</td>
 											<td>
-												<iframe src="{{billDetail.version.urls.pdf}}"></iframe>
+												<object style="width: 100%;    height: 100%;" data="{{billDetail.version.urls.pdf}}"></object>
 											</td>
 										</tr>
 									</tbody>
@@ -355,7 +355,7 @@
 		    border: none;
     height: 1px;
     /* color: #333; */
-    margin: 2px 0px;
+    margin: 5px 0px;
     background-color: #ddd;
 	}
 	.progress {
@@ -372,7 +372,7 @@
 	}
 */
 	.bills-details-title {
-		
+		vertical-align: top;padding-top: 0px;
 	    width: 20%;
 	    padding: 10px 0px;
 	}
