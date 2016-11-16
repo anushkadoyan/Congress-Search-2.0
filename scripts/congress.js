@@ -24,6 +24,7 @@ myApp.controller("myController",function($scope, $filter) {
 			$scope.billsNew =[];	
 			$scope.billsOld =[];	
 			$scope.committees =[];	
+			$scope.favorites = [];
 			//get legislators
 			$(legislators).each( function(index, obj){
 				if(obj.district==null) {
@@ -175,6 +176,9 @@ myApp.controller("myController",function($scope, $filter) {
 		
 	});
 	$(function() {
+		$('.favButton').on("click", function(e) {
+			console.log("ASDF");
+		});
 		$('#left-side a:first').click();
 		});
 		 $(window).on("load", function() {
@@ -183,7 +187,22 @@ myApp.controller("myController",function($scope, $filter) {
 			console.log('asdf');
 				e.preventDefault();
 			});
-			});
+			
+			// STAR CLICKED
+			window.favClicked = function (button) {
+				console.log(button);
+				if($(button).find('i').attr('class') =="fa fa-star-o") {
+					$(button).find('i').removeClass();
+					$(button).find('i').addClass('fa fa-star');
+					$(button).find('i').css('color','yellow');
+				} else if ($(button).find('i').attr('class') =="fa fa-star"){
+					$(button).find('i').removeClass();
+					$(button).find('i').addClass('fa fa-star-o');
+					$(button).find('i').css('color','black');
+				}
+				$(this).addClass('fa-star');
+			}
+	});
 	$('#tabButton').click(function(e) {
 		e.preventDefault();
 		if($('#left-side').css('display')=="table-cell") {
@@ -221,8 +240,13 @@ myApp.controller("myController",function($scope, $filter) {
 		console.log($scope.billDetail);
 		
 	}
-	
+	$('.favButton').on("click", function(e) {
+		e.preventDefault();
+		console.log('click');
+		
+	});
 	//legislators view detail button clicked
+
 	$scope.buttonClicked = function(obj){
 		if(obj.target.attributes[3] && obj.target.attributes[3].value.length) {
 			var targetId = obj.target.attributes[3].value;
@@ -261,7 +285,10 @@ myApp.controller("myController",function($scope, $filter) {
 							"chamberImage":chamberImageForCommittees
 						});
 					});
-*/
+*/		
+						
+	
+	
 					if(person.party=="D") {
 						personPartyImage="http://cs-server.usc.edu:45678/hw/hw8/images/d.png";
 						personPartyWord = "Democrat";
@@ -269,16 +296,19 @@ myApp.controller("myController",function($scope, $filter) {
 						personPartyImage="http://cs-server.usc.edu:45678/hw/hw8/images/r.png";
 						personPartyWord = "Republican";
 					}
+					
 					//  Append a slide to the carousel div
 		// 			var a = $('<div class="item" data-id="1" id="'+targetId+'"><a href="#legislator-carousel"  data-slide-to="0"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></div>') 
 					var content= '<div class="item" data-id="1" id="'+targetId+'">' 
 					+ 	  	'<a href="#legislator-carousel"  data-slide-to="0">' 
-					+			'<button class="btn btn-default" style="margin:10px">'
+					+			'<button  class="btn btn-default" style="margin:10px">'
 					+				'<span class="glyphicon glyphicon-chevron-left">' 
 					+				'</span>' 
 					+			'</button>' 
-					+		'</a>' 
-					+		'<h2 class="h2">Details</h2>' 
+					+		'</a>' +		'<h2 class="h2">Details</h2>'
+					+	'<button onclick="favClicked(this)" ng-click="favButtonClicked()" class="favButton btn btn-default" style="margin:10px; float:right">'
+					+				'<i class="fa fa-star-o" aria-hidden="true"></i>'
+					+			'</button>' 
 					+	'<table class="table details-table">' 
 					+		'<tbody>' 
 					+			'<tr>' 		
@@ -400,7 +430,9 @@ myApp.controller("myController",function($scope, $filter) {
 		
 					a.appendTo('.carousel-inner');
 					var index = $('#legislator-carousel .carousel-inner #'+targetId).index();
-							$('#legislator-carousel').carousel(index);		
+							$('#legislator-carousel').carousel(index);
+							
+		
 
 				},
 				error: function(xhr, status, error){
@@ -410,10 +442,15 @@ myApp.controller("myController",function($scope, $filter) {
 		} // end else
 		
 		
+$scope.favButtonClicked = function () {
+		console.log("asdfs");
+	}
 
 
   	};
-  	
+  	$scope.favButtonClicked = function () {
+		console.log("asdfs");
+	}
   	//ignore All States option in dropdown
 	$scope.ignoreNullComparator = function(actual, expected){
 	    if (expected === "All States") {
