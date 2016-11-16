@@ -87,8 +87,7 @@
 														<th class="dist" >District</th>
 														<th colspan="2">State</th>
 													</tr>
-													<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
-									 -->
+												
 													<tr class="leg-table-content" dir-paginate="p in people | filter: customFilter | filter: search | filter: select1:ignoreNullComparator | orderBy: customOrder| itemsPerPage:10 " pagination-id="leg-pagination">
 														<td><img style="width: 30px; margin: 0px 10px; height: auto;" ng-src="{{p.partyImage}}"></td>
 														<td>{{p.lastName}}, {{p.firstName}}</td>
@@ -101,7 +100,6 @@
 													</tr>
 											    </table>
 											    <dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="leg-pagination"></dir-pagination-controls>
-		
 											</div>
 										</div>
 									</div>
@@ -114,21 +112,9 @@
 									</button>
 								</a>
 							</div>
-
 						</div>
 					</div>
 				</div>
-
-
-<!--
-				"id": obj.bill_id,
-						"type": obj.bill_type,
-						"title": obj.official_title,
-						"chamber": obj.chamber.charAt(0).toUpperCase() + obj.chamber.slice(1),
-						"introduced": obj.introduced_on,
-						"sponsor": obj.sponsor,
-						"chamberImage":chamberImageForBills
--->
 				<div style="display: none" id="bill-content" data-current="true">
 					<h1 style="font-weight: 400; margin-top: 0px;" id="bill-title">Bills</h1>
 					<hr>
@@ -206,7 +192,7 @@
 											<!--				<tr dir-paginate="p in people | filter:customFilter | orderBy: orderByLastName | itemsPerPage:10 ">
 							 -->
 											<tr class="comm-table-content" dir-paginate="b in committees | filter:customFilter |  itemsPerPage:10 " pagination-id="comm-pagination">
-												<td><img style="margin: 0px 10px; width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
+												<td style="width: 10%;"><img style="margin: 0px 10px; width: 30px; height: auto;" ng-src="{{b.chamberImage}}">{{b.chamber}}</td>
 												<td>{{b.id}}</td>
 												<td>{{b.name}}</td>
 												<td>{{b.parent}}</td>

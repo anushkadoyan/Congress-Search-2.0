@@ -485,7 +485,43 @@ myApp.controller("myController",function($scope, $filter) {
 // 		$(this).tab('show')
 // 		console.log($scope.customOrder);
 	});	
-	
+	$('#billsTabs a').click(function (e) {
+		$scope.currentBill = filterBy;
+		e.preventDefault();
+		$scope.search="";
+		
+		$('.highlight input').css('display','block');
+		var filterBy = $(this).attr('id');
+		
+		
+		if (filterBy== "active") {
+			$('#highlight-bills-title')[0].innerHTML = "Active Bills";
+			orderBy='introduced';
+		
+			
+		}
+		else if (filterBy=="new") {
+			$('#highlight-bills-title')[0].innerHTML = "New Bills";
+			orderBy='introduced';
+			
+			
+		}
+		$scope.bills = function() {
+			if (filterBy== "active") {
+				return $scope.billsOld;
+			} else {
+				return $scope.billsNew;
+			}
+
+		};
+		$scope.$apply(function() {
+			$scope.customFilter = filterBy;
+			$scope.customOrder = orderBy;
+		});
+// 		$(this).tab('show')
+// 		console.log($scope.customOrder);
+	});	
+
 	
 	$('.highlight input').on("change", function(e) {
 		e.preventDefault();
